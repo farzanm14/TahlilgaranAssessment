@@ -1,13 +1,13 @@
 import React from 'react';
-import { LogBox, SafeAreaView, StatusBar, useColorScheme } from 'react-native';
+import { LogBox, SafeAreaView, StatusBar } from 'react-native';
+import Navigation from './src/navigation/NavigationContainer';
 LogBox.ignoreAllLogs();
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
     <SafeAreaView>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBar barStyle={'light-content'} />
+      <Navigation />
     </SafeAreaView>
   );
 };
