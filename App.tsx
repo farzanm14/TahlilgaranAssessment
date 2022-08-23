@@ -1,5 +1,6 @@
 import React from 'react';
-import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
+import { LogBox, SafeAreaView, StatusBar, useColorScheme } from 'react-native';
+LogBox.ignoreAllLogs();
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
