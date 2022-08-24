@@ -4,13 +4,13 @@ import { Image, Text } from '../../../shared/components';
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions";
 import { User } from '../../../shared/types';
 
-const UserItem = (user: User) => {
+const UserItem = ({ username, name }: User) => {
     return (
         <Pressable style={styles.container}>
             <Image source={{ uri: "" }} style={styles.userImage} />
             <View style={styles.nameContainer}>
-                <Text bold>{user.username}</Text>
-                <Text>{user.name}</Text>
+                <Text bold>{username}</Text>
+                <Text>{name}</Text>
             </View>
         </Pressable>
     )
