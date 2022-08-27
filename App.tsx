@@ -9,7 +9,7 @@ const App = () => {
   return (
     <Container>
       <StatusBar barStyle={'light-content'} />
-      <SplashScreen />
+      <Navigation />
     </Container>
   );
 };

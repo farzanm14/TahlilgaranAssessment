@@ -1,12 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SplashScreen from "../screens/auth/SplashScreen";
 import UsersScreen from "../screens/home/UsersScreen";
 import ProfileScreen from "../screens/profile/ProfileScreen";
 import React from "react";
 import { Routes } from "../shared/constants/routes";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
     return (
