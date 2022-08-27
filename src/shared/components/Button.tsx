@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleProp, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
+import { StyleProp, StyleSheet, Pressable, TouchableOpacity, ViewStyle, TextStyle } from 'react-native'
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions";
 import Text from './Text'
 import colors from '../theme/colors'
@@ -11,8 +11,8 @@ export type Props = {
     bordered?: boolean;
     bold?: boolean;
     disabled?: boolean;
-    style?: StyleProp<any>;
-    titleStyle?: StyleProp<any>;
+    style?: StyleProp<ViewStyle>;
+    titleStyle?: StyleProp<TextStyle>;
 };
 
 const PrimaryButton: React.FC<Props> = ({

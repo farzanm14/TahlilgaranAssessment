@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleProp, StyleSheet } from 'react-native';
-import FastImage from 'react-native-fast-image';
+import FastImage, { ImageStyle } from 'react-native-fast-image';
 
 export type Props = {
-    style?: StyleProp<any>;
+    style?: StyleProp<ImageStyle>;
     source: any,//TODO find right type
 };
 
