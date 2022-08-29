@@ -1,8 +1,10 @@
 import { StackActions, useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
-import { Container, EmptyState, Text } from '../../shared/components'
+import UsersHook from '../../hooks/UsersHook'
+import { Button, Container, EmptyState, Text } from '../../shared/components'
+import Loading from '../../shared/components/LoadingState'
 import { Routes } from '../../shared/constants/routes'
 import colors from '../../shared/theme/colors'
 import { User } from '../../shared/types'
@@ -10,7 +12,15 @@ import UserItem from './components/UserItem'
 
 const UsersScreen = () => {
     const navigation = useNavigation()
-    let usersList: User[] = []
+    // const [usersList, setUsersList] = useState<User[]>([])
+    const [dataHasReceived, setDataHasReceived] = useState<boolean>(false)
+    const { loading, receiveUsersList, usersList, } = UsersHook()
+
+    useEffect(() => {
+        receiveUsersList()
+        setDataHasReceived(true)
+    }, [dataHasReceived])
+
 
     const moveToSelectedUserProfile = () => {
         navigation.dispatch(
@@ -21,6 +31,7 @@ const UsersScreen = () => {
     const renderItem = ({ item }: { item: User }) => (
         <UserItem user={item} onPress={moveToSelectedUserProfile} />
     )
+
     const Header = () => {
         return (
             <View style={styles.header}>
@@ -39,7 +50,9 @@ const UsersScreen = () => {
                 stickyHeaderIndices={[0]}
                 stickyHeaderHiddenOnScroll={true}
                 ListHeaderComponent={<Header />}
-                ListEmptyComponent={<EmptyState message={"there isn't any user"} />}
+                ListEmptyComponent={loading ?
+                    <Loading /> :
+                    <EmptyState message={"there isn't any user"} />}
             />
         </Container>
     )
