@@ -13,7 +13,7 @@ const UsersHook = () => {
 
         HttpHandler.Request(HttpRequest.GET, EndPoints.home.users)
             .then(res => {
-                // console.log("___ receiveUsersList ___ res  :  ", res?.data)
+                console.log("___ receiveUsersList ___ res  :  ", res?.data)
                 setUsersList(res?.data)
             }).catch(err => {
                 console.log("___ receiveUsersList ___ error  :  ", err?.data)

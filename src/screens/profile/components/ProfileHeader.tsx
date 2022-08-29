@@ -1,28 +1,26 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { BackIcon } from '../../../assets/icons'
-import { generateColor } from '../../../shared/services/Tools'
-import { Pressable, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
+import { BackIcon } from '../../../assets/icons'
 import { IconicAvatar, Text } from '../../../shared/components'
 import { User } from '../../../shared/types'
 
+interface Props {
+    selectedUser: User
+}
 
-const ProfileHeader = () => {
+const ProfileHeader = ({ selectedUser }: Props) => {
 
     const { goBack } = useNavigation()
-    type UserProps = {
-        user: User;
-        onPress: () => void,
-    };
 
-    function UserItem({ user }: UserProps): JSX.Element {
+    function UserItem() {
         return (
             <View style={styles.container} >
                 <IconicAvatar style={styles.userImage} circle={true} />
                 <View style={styles.nameContainer}>
-                    <Text bold>{user.username}</Text>
-                    <Text>{user.name}</Text>
+                    <Text bold>{selectedUser.username}</Text>
+                    <Text>{selectedUser.name}</Text>
                 </View>
             </View>
         )
@@ -30,11 +28,7 @@ const ProfileHeader = () => {
 
     return (
         <View style={styles.container}>
-            <UserItem
-                user={{
-                    name: "farzaneh Mirzakhanloo",
-                    username: "farzan_14"
-                }} />
+            <UserItem />
             <BackIcon onPress={() => goBack()} />
         </View>
     )

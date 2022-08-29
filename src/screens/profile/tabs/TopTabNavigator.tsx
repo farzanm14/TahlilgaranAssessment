@@ -5,12 +5,13 @@ import { StyleSheet } from "react-native";
 import { responsiveWidth as rw, responsiveHeight as rh } from "react-native-responsive-dimensions";
 import { Routes } from '../../../shared/constants/routes';
 import colors from '../../../shared/theme/colors';
+import { User } from "../../../shared/types";
 import AlbumsTab from './AlbumsTab';
 import PostsTab from './PostsTab';
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function TopTabNavigator() {
+export default function TopTabNavigator(selectedUser: User) {
     return (
         <Tab.Navigator
             tabBarOptions={{
