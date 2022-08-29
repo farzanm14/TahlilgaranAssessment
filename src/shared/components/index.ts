@@ -5,6 +5,7 @@ import Icon from './Icon'
 import Container from './Container'
 import Avatar from './Avatar'
 import EmptyState from './EmptyState'
+import IconicAvatar from './IconicAvatar'
 
 export {
     Text,
@@ -14,4 +15,5 @@ export {
     Container,
     Avatar,
     EmptyState,
+    IconicAvatar,
 }

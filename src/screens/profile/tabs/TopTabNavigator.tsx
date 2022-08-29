@@ -22,6 +22,7 @@ export default function TopTabNavigator() {
                 indicatorStyle: styles.indicatorStyle,
             }}
             initialRouteName={Routes.ALBUMS}
+            backBehavior="order"
         >
             <Tab.Screen name={Routes.ALBUMS} component={AlbumsTab} />
             <Tab.Screen name={Routes.POSTS} component={PostsTab} />

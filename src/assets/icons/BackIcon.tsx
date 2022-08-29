@@ -1,8 +1,9 @@
 import React from "react";
-import Icon from "react-native-dynamic-vector-icons";
+import { Icon } from "../../shared/components";
+import { MyIconProps } from "../../shared/components/Icon";
 
-const BackIcon = ({ ...prp }: any) => {
-    return <Icon name="chevron-left" {...prp} />;
+const BackIcon = ({ ...prp }: MyIconProps) => {
+    return <Icon name="chevron-right" {...prp} />;
 }
 
 export default BackIcon;
