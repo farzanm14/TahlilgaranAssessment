@@ -1,15 +1,17 @@
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, StackActions } from '@react-navigation/native'
 import React, { useEffect } from 'react'
 import SplashIcon from '../../assets/icons/SplashIcon'
 import { Container, Text } from '../../shared/components'
 import { Routes } from '../../shared/constants/routes'
 
 const SplashScreen = () => {
-    const { replace } = useNavigation()
+    const navigation = useNavigation()
 
     useEffect(() => {
         setTimeout(() => {
-            replace(Routes.HOME)
+            navigation.dispatch(
+                StackActions.replace(Routes.HOME)
+            );
         }, 2000);
 
         return () => { }
@@ -17,7 +19,7 @@ const SplashScreen = () => {
 
     return (
         <Container style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <SplashIcon iconSize={60} />
+            {/* <SplashIcon iconSize={60} /> */}
             <Text>Farzan's Assessment App</Text>
         </Container>
     )

@@ -1,16 +1,21 @@
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Image, Text } from '../../../shared/components';
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions";
+import { Avatar, Text } from '../../../shared/components';
 import { User } from '../../../shared/types';
 
-const UserItem = ({ username, name }: User) => {
+type UserProps = {
+    user: User;
+    onPress: () => void
+};
+
+function UserItem({ user, onPress }: UserProps): JSX.Element {
     return (
-        <Pressable style={styles.container}>
-            <Image source={{ uri: "" }} style={styles.userImage} />
+        <Pressable style={styles.container} onPress={onPress}>
+            <Avatar style={styles.userImage} circle={true} firstChar={user.username} />
             <View style={styles.nameContainer}>
-                <Text bold>{username}</Text>
-                <Text>{name}</Text>
+                <Text bold>{user.username}</Text>
+                <Text>{user.name}</Text>
             </View>
         </Pressable>
     )
@@ -20,11 +25,11 @@ export default UserItem;
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'space-between',
-    }, userImage: {
-        width: rw(20),
-        height: rw(20),
-    }, nameContainer: {
+        marginVertical: rh(1.5),
         flexDirection: 'row'
+    }, userImage: {
+        marginHorizontal: rw(3)
+    }, nameContainer: {
+
     }
 })
