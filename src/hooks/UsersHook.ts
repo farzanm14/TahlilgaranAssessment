@@ -15,7 +15,6 @@ const UsersHook = () => {
                 setListOfUsers(res?.data)
             }).catch(err => {
                 console.log("___ receiveUsersList ___ error  :  ", err?.data)
-            }).finally(() => {
                 setListOfUsersLoading(false)
             })
     }

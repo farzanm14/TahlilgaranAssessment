@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     bold: {
         fontSize: fontSizes.large,
         letterSpacing: 0,
+        fontWeight: '500'
     },
     light: {
         fontSize: fontSizes.medium,

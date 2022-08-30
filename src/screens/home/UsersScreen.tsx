@@ -20,9 +20,11 @@ const UsersScreen = () => {
     useEffect(() => {
         receiveUsersList()
         // setDataHasReceived(true)
-        // }, [dataHasReceived])
     }, [])
+    // }, [])
 
+    useEffect(() => {
+    }, [listOfUsersLoading])
 
     const moveToSelectedUserProfile = (selectedUser: User) => {
         console.log("moveToSelectedUserProfile", selectedUser);
@@ -48,6 +50,7 @@ const UsersScreen = () => {
             <FlatList<User>
                 keyExtractor={(item, key) => key.toString()}
                 data={listOfUsers}
+                extraData={listOfUsers}
                 renderItem={renderItem}
                 style={styles.list}
 

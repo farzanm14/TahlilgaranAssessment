@@ -6,15 +6,17 @@ export class UsersStore implements IStore {
     /**
      * states
      */
-    @observable listOfUsers: User[] = [];
-    @observable listOfUsersLoading: Boolean = false;
+    @observable listOfUsers: User[] | null = null;
+    @observable listOfUsersLoading: Boolean = true;
 
-    @observable selectedUser: User = null;
+    @observable selectedUser: User | null = null;
 
     /**
      * functions
      */
     @action setListOfUsers = (value: User[]): void => {
+        // console.log("__store__ setListOfUsers ", value);
+
         this.listOfUsersLoading = false;
         this.listOfUsers = value;
     };

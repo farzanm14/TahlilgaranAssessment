@@ -2,6 +2,8 @@ import React from 'react';
 
 import './_hydration';
 import { UsersStore } from './UsersStore';
+import { ProfileStore } from './ProfileStore';
+import { AlbumStore } from './AlbumsStore';
 
 export type PVoid = Promise<void>;
 export interface IStore {
@@ -11,6 +13,8 @@ type Stores = Record<string, IStore>;
 
 export const stores = {
   users: new UsersStore(),
+  profile: new ProfileStore(),
+  album: new AlbumStore(),
 };
 type ContextStores = typeof stores;
 
