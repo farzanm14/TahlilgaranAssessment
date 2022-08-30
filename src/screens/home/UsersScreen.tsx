@@ -19,9 +19,7 @@ const UsersScreen = () => {
 
     useEffect(() => {
         receiveUsersList()
-        // setDataHasReceived(true)
     }, [])
-    // }, [])
 
     useEffect(() => {
     }, [listOfUsersLoading])

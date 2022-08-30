@@ -12,7 +12,7 @@ type PhotoProps = {
 function PhotoItem({ photo, onPress }: PhotoProps): JSX.Element {
     return (
         <Pressable style={styles.photoItemContainer} onPress={onPress}>
-            <Image size={rw(20)} source={{ uri: photo.url }} />
+            <Image size={rw(20)} source={{ uri: photo.thumbnailUrl }} />
             <Text small style={styles.title}>{photo.title}</Text>
         </Pressable>
     )

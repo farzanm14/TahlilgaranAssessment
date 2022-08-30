@@ -4,7 +4,7 @@ import FastImage, { ImageStyle, Source } from 'react-native-fast-image';
 import images from '../../assets/images';
 
 export type Props = {
-    style?: StyleProp<ImageStyle>;
+    style?: ImageStyle,//StyleProp<ImageStyle>;
     source: Source | number,// ImageSourcePropType
     size?: number
 };
@@ -19,7 +19,7 @@ const MyImage: React.FC<Props> = ({ style, source, size, ...rest }) => {
             ]}
             source={!source ? images.global.defaultSrc : source}
             defaultSource={images.global.defaultSrc}
-            resizeMode={FastImage.resizeMode.contain}
+            resizeMode={FastImage.resizeMode.cover}
             {...rest}
         />
     )

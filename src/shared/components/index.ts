@@ -6,6 +6,7 @@ import Container from './Container'
 import Avatar from './Avatar'
 import EmptyState from './EmptyState'
 import IconicAvatar from './IconicAvatar'
+import FabButton from './FabButton'
 
 export {
     Text,
@@ -16,4 +17,5 @@ export {
     Avatar,
     EmptyState,
     IconicAvatar,
+    FabButton,
 }

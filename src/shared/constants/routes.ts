@@ -6,4 +6,6 @@ export const Routes = {
   ALBUMS: "Albums",
   POSTS: "Posts",
   ALBUMDETAIL: "AlbumDetailScreen",
+  POST: "PostScreen",
+  EDITPOST: "EditPostScreen",
 };

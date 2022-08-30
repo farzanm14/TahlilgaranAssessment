@@ -26,7 +26,7 @@ const AlbumsTab = () => {
     const moveToSelectedAlbum = (selectedAlbum: Album) => {
         console.log("moveToselectedAlbumProfile", selectedAlbum);
         setSelectedAlbum(selectedAlbum)
-        // navigate()
+        navigate(Routes.ALBUMDETAIL)
 
     }
 

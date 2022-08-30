@@ -4,6 +4,7 @@ import './_hydration';
 import { UsersStore } from './UsersStore';
 import { ProfileStore } from './ProfileStore';
 import { AlbumStore } from './AlbumsStore';
+import { PostsStore } from './PostsStore';
 
 export type PVoid = Promise<void>;
 export interface IStore {
@@ -15,6 +16,7 @@ export const stores = {
   users: new UsersStore(),
   profile: new ProfileStore(),
   album: new AlbumStore(),
+  post: new PostsStore(),
 };
 type ContextStores = typeof stores;
 
