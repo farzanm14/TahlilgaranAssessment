@@ -12,6 +12,7 @@ const UsersHook = () => {
         HttpHandler.Request(HttpRequest.GET, EndPoints.home.users)
             .then(res => {
                 console.log("___ receiveUsersList ___ res  :  ", res?.data)
+                setListOfUsersLoading(false)
                 setListOfUsers(res?.data)
             }).catch(err => {
                 console.log("___ receiveUsersList ___ error  :  ", err?.data)

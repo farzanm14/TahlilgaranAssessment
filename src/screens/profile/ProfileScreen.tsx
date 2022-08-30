@@ -1,6 +1,5 @@
 import React from 'react'
 import { Container } from '../../shared/components'
-import { User } from '../../shared/types'
 import ProfileHeader from './components/ProfileHeader'
 import TopTabNavigator from './tabs/TopTabNavigator'
 

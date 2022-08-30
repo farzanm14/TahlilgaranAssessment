@@ -8,6 +8,7 @@ export class PostsStore implements IStore {
      */
     @observable selectedPhoto: Photo | null = null;
     @observable commentsList: Comment[] = [];
+    @observable commentsListLoading: boolean = true;
 
     /**
      * functions
@@ -17,7 +18,11 @@ export class PostsStore implements IStore {
     };
     @action setCommentsList = (value: Comment[]): void => {
         this.commentsList = value;
+        this.commentsListLoading = false;
     };
+    @action setCommentsListLoading = (value: boolean): void => {
+        this.commentsListLoading = value
+    }
 
 
 
@@ -28,7 +33,8 @@ export class PostsStore implements IStore {
             name: PostsStore.name,
             properties: [
                 'selectedPhoto',
-                'commentsList'
+                'commentsList',
+                'commentsListLoading'
             ],
         });
     }

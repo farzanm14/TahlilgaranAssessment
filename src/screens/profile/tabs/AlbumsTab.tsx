@@ -12,21 +12,24 @@ import AlbumItem from '../components/AlbumItem';
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
 
 const AlbumsTab = () => {
-    const { profile: { listOfAlbums, listOfAlbumsLoading, setSelectedAlbum } } = useMobxStore();
-    const { receiveAlbumsList } = ProfileHook()
+    const { profile: { listOfAlbums, listOfAlbumsLoading, setSelectedAlbum },
+        album: { selectedAlbumPhotosLoading }
+    } = useMobxStore();
+    const { receiveAlbumsList, receiveSelectedAlbumPhotos, } = ProfileHook()
     const { navigate } = useNavigation()
 
-    useEffect(() => {
-        receiveAlbumsList()
-    }, [])
+    // useEffect(() => {
+    //     receiveAlbumsList()
+    // }, [])
 
-    useEffect(() => {
-    }, [listOfAlbumsLoading])
+    // useEffect(() => {
+    // }, [listOfAlbumsLoading])
 
-    const moveToSelectedAlbum = (selectedAlbum: Album) => {
+    const moveToSelectedAlbum = async (selectedAlbum: Album) => {
         console.log("moveToselectedAlbumProfile", selectedAlbum);
         setSelectedAlbum(selectedAlbum)
-        navigate(Routes.ALBUMDETAIL)
+        await receiveSelectedAlbumPhotos()
+        !selectedAlbumPhotosLoading && navigate(Routes.ALBUMDETAIL)
 
     }
 

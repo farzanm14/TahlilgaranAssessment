@@ -15,12 +15,12 @@ export class UsersStore implements IStore {
      * functions
      */
     @action setListOfUsers = (value: User[]): void => {
-        // console.log("__store__ setListOfUsers ", value);
-
         this.listOfUsersLoading = false;
         this.listOfUsers = value;
     };
+
     @action setListOfUsersLoading = (value: Boolean): void => {
+        console.log("setListOfUsersLoading", value);
         this.listOfUsersLoading = value;
     }
     @action setSelectedUser = (value: User): void => {

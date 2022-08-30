@@ -2,6 +2,7 @@ import { StackActions, useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
+import ProfileHook from '../../hooks/ProfileHook'
 import UsersHook from '../../hooks/UsersHook'
 import { Container, EmptyState, Text } from '../../shared/components'
 import Loading from '../../shared/components/LoadingState'
@@ -13,20 +14,24 @@ import UserItem from './components/UserItem'
 
 const UsersScreen = () => {
     const navigation = useNavigation()
-    const [dataHasReceived, setDataHasReceived] = useState<boolean>(false)
-    const { receiveUsersList, } = UsersHook()
-    const { users: { listOfUsers, listOfUsersLoading, setSelectedUser } } = useMobxStore();
+    const [moveToNextScreen, setMoveToNextScreen] = useState<boolean>(false)
+    const [list, setlist] = useState<User[]>([])
+    // const { receiveUsersList, } = UsersHook()
+    const { users: { listOfUsers, listOfUsersLoading, setSelectedUser },
+        profile: { listOfAlbumsLoading }
+    } = useMobxStore();
 
-    useEffect(() => {
-        receiveUsersList()
-    }, [])
+    // useEffect(() => {
+    //     setlist(listOfUsers)
+    // }, [listOfAlbumsLoading])
 
-    useEffect(() => {
-    }, [listOfUsersLoading])
+    const { receiveAlbumsList, receivePostsList } = ProfileHook()
 
-    const moveToSelectedUserProfile = (selectedUser: User) => {
-        console.log("moveToSelectedUserProfile", selectedUser);
+    const moveToSelectedUserProfile = async (selectedUser: User) => {
         setSelectedUser(selectedUser)
+        await receiveAlbumsList()
+        // await receivePostsList()
+        // !listOfAlbumsLoading && 
         navigation.dispatch(
             StackActions.push(Routes.PROFILE)
         );
@@ -47,16 +52,15 @@ const UsersScreen = () => {
         <Container>
             <FlatList<User>
                 keyExtractor={(item, key) => key.toString()}
-                data={listOfUsers}
-                extraData={listOfUsers}
+                data={list}
+                extraData={list}
                 renderItem={renderItem}
                 style={styles.list}
 
                 stickyHeaderIndices={[0]}
                 stickyHeaderHiddenOnScroll={true}
                 ListHeaderComponent={<Header />}
-                ListEmptyComponent={listOfUsersLoading ?
-                    <Loading /> :
+                ListEmptyComponent={listOfUsersLoading ? <Loading /> :
                     <EmptyState message={"there isn't any user"} />}
             />
         </Container>

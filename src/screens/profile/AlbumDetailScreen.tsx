@@ -13,21 +13,18 @@ import PhotoItem from './components/PhotoItem'
 
 const AlbumDetailScreen = () => {
   const { goBack, navigate } = useNavigation()
-  const { receiveSelectedAlbumPhotos } = ProfileHook()
+  const { receiveSelectedPhotoComments } = ProfileHook()
   const {
     profile: { selectedAlbum, },
-    post: { setSelectedPhoto },
+    post: { setSelectedPhoto, commentsListLoading },
     album: { selectedAlbumPhotos },
   } = useMobxStore();
 
-  useEffect(() => {
-    receiveSelectedAlbumPhotos()
-  }, [])
-
-  const moveToSelectedPhoto = (selectedPhoto: Photo) => {
+  const moveToSelectedPhoto = async (selectedPhoto: Photo) => {
     console.log("moveToSelectedPhoto", selectedPhoto);
     setSelectedPhoto(selectedPhoto)
-    navigate(Routes.POST)
+    await receiveSelectedPhotoComments()
+    !commentsListLoading && navigate(Routes.POST)
   }
 
   const renderItem = ({ item }: Photo) => (
