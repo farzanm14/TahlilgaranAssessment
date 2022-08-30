@@ -9,6 +9,8 @@ export class UsersStore implements IStore {
     @observable listOfUsers: User[] = [];
     @observable listOfUsersLoading: Boolean = false;
 
+    @observable selectedUser: User = null;
+
     /**
      * functions
      */
@@ -19,13 +21,16 @@ export class UsersStore implements IStore {
     @action setListOfUsersLoading = (value: Boolean): void => {
         this.listOfUsersLoading = value;
     }
+    @action setSelectedUser = (value: User): void => {
+        this.selectedUser = value;
+    }
 
     constructor() {
         makeAutoObservable(this);
 
         makePersistable(this, {
             name: UsersStore.name,
-            properties: ['listOfUsers', 'listOfUsersLoading'],
+            properties: ['listOfUsers', 'listOfUsersLoading', 'selectedUser'],
         });
     }
 

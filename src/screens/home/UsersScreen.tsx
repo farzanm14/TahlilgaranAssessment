@@ -8,22 +8,25 @@ import Loading from '../../shared/components/LoadingState'
 import { Routes } from '../../shared/constants/routes'
 import colors from '../../shared/theme/colors'
 import { User } from '../../shared/types'
+import { useMobxStore } from '../../stores'
 import UserItem from './components/UserItem'
 
 const UsersScreen = () => {
     const navigation = useNavigation()
     const [dataHasReceived, setDataHasReceived] = useState<boolean>(false)
-    const { loading, receiveUsersList, usersList, } = UsersHook()
+    const { receiveUsersList, } = UsersHook()
+    const { users: { listOfUsers, listOfUsersLoading, setSelectedUser } } = useMobxStore();
 
     useEffect(() => {
         receiveUsersList()
-        setDataHasReceived(true)
-    }, [dataHasReceived])
+        // setDataHasReceived(true)
+        // }, [dataHasReceived])
+    }, [])
 
 
     const moveToSelectedUserProfile = (selectedUser: User) => {
         console.log("moveToSelectedUserProfile", selectedUser);
-
+        setSelectedUser(selectedUser)
         navigation.dispatch(
             StackActions.push(Routes.PROFILE)
         );
@@ -44,14 +47,14 @@ const UsersScreen = () => {
         <Container>
             <FlatList<User>
                 keyExtractor={(item, key) => key.toString()}
-                data={usersList}
+                data={listOfUsers}
                 renderItem={renderItem}
                 style={styles.list}
 
                 stickyHeaderIndices={[0]}
                 stickyHeaderHiddenOnScroll={true}
                 ListHeaderComponent={<Header />}
-                ListEmptyComponent={loading ?
+                ListEmptyComponent={listOfUsersLoading ?
                     <Loading /> :
                     <EmptyState message={"there isn't any user"} />}
             />

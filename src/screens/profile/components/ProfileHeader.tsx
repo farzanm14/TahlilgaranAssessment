@@ -4,15 +4,12 @@ import { StyleSheet, View } from 'react-native'
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
 import { BackIcon } from '../../../assets/icons'
 import { IconicAvatar, Text } from '../../../shared/components'
-import { User } from '../../../shared/types'
+import { useMobxStore } from '../../../stores'
 
-interface Props {
-    selectedUser: User
-}
-
-const ProfileHeader = ({ selectedUser }: Props) => {
+const ProfileHeader = () => {
 
     const { goBack } = useNavigation()
+    const { users: { selectedUser } } = useMobxStore();
 
     function UserItem() {
         return (
