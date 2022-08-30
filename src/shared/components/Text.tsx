@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
         fontStyle: "normal",
         lineHeight: 25,
         letterSpacing: 0,
-        textAlign: "right",
         color: "#404040"
     }
 })

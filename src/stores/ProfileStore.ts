@@ -10,8 +10,6 @@ export class ProfileStore implements IStore {
     @observable listOfAlbumsLoading: boolean = false;
 
     @observable selectedAlbum: Album | null = null;
-    @observable selectedAlbumPhotos: Photo[] = [];
-    @observable selectedAlbumPhotosLoading: boolean = true;
 
     /**
      * functions
@@ -24,23 +22,20 @@ export class ProfileStore implements IStore {
         this.listOfAlbumsLoading = value;
     }
     @action setSelectedAlbum = (value: Album): void => {
+        console.log("setSelectedAlbum", value);
+
         this.selectedAlbum = value;
     }
-    @action setSelectedAlbumPhotos = (value: Photo[]): void => {
-        this.selectedAlbumPhotos = value;
-        this.selectedAlbumPhotosLoading = false;
-    }
-    @action setSelectedAlbumPhotosLoading = (value: boolean): void => {
-        this.selectedAlbumPhotosLoading = value;
-    }
+
 
     constructor() {
         makeAutoObservable(this);
 
         makePersistable(this, {
             name: ProfileStore.name,
-            properties: ['listOfAlbums', 'listOfAlbumsLoading',
-                'selectedAlbum', 'selectedAlbumPhotos', 'selectedAlbumPhotosLoading'],
+            properties: [
+                'listOfAlbums', 'listOfAlbumsLoading',
+                'selectedAlbum',],
         });
     }
 

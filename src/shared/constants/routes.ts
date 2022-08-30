@@ -5,4 +5,5 @@ export const Routes = {
   PROFILE: "ProfileScreen",
   ALBUMS: "Albums",
   POSTS: "Posts",
+  ALBUMDETAIL: "AlbumDetailScreen",
 };

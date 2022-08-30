@@ -2,16 +2,15 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 
 import * as React from 'react';
 import { StyleSheet } from "react-native";
-import { responsiveWidth as rw, responsiveHeight as rh } from "react-native-responsive-dimensions";
+import { responsiveWidth as rw } from "react-native-responsive-dimensions";
 import { Routes } from '../../../shared/constants/routes';
 import colors from '../../../shared/theme/colors';
-import { User } from "../../../shared/types";
 import AlbumsTab from './AlbumsTab';
 import PostsTab from './PostsTab';
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function TopTabNavigator(selectedUser: User) {
+export default function TopTabNavigator() {
     return (
         <Tab.Navigator
             tabBarOptions={{

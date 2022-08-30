@@ -1,30 +1,34 @@
 import React from 'react';
-import { StyleProp, StyleSheet } from 'react-native';
-import FastImage, { ImageStyle } from 'react-native-fast-image';
+import { Image, ImageSourcePropType, StyleProp, StyleSheet } from 'react-native';
+import FastImage, { ImageStyle, Source } from 'react-native-fast-image';
+import images from '../../assets/images';
 
 export type Props = {
     style?: StyleProp<ImageStyle>;
-    source: any,//TODO find right type
+    source: Source | number,// ImageSourcePropType
+    size?: number
 };
 
-const Image: React.FC<Props> = ({ style, source, ...rest }) => {
+const MyImage: React.FC<Props> = ({ style, source, size, ...rest }) => {
     return (
-        <FastImage
+        <Image//FastImage
             style={[
                 styles.baseImage,
+                size != undefined && { width: size, height: size },
                 style
             ]}
-            source={source}
-            resizeMode={FastImage.resizeMode.cover}
+            source={!source ? images.global.defaultSrc : source}
+            defaultSource={images.global.defaultSrc}
+            resizeMode={FastImage.resizeMode.contain}
             {...rest}
         />
     )
 }
 
-export default Image;
+export default MyImage;
 
 const styles = StyleSheet.create({
     baseImage: {
-        alignSelf: 'center'
+        // alignSelf: 'center'
     },
 })

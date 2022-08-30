@@ -16,8 +16,8 @@ const ProfileHeader = () => {
             <View style={styles.container} >
                 <IconicAvatar style={styles.userImage} circle={true} />
                 <View style={styles.nameContainer}>
-                    <Text bold>{selectedUser.username}</Text>
-                    <Text>{selectedUser.name}</Text>
+                    <Text bold>{selectedUser?.username}</Text>
+                    <Text>{selectedUser?.name}</Text>
                 </View>
             </View>
         )

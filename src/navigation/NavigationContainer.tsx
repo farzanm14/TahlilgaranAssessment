@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SplashScreen from "../screens/auth/SplashScreen";
 import UsersScreen from "../screens/home/UsersScreen";
 import ProfileScreen from "../screens/profile/ProfileScreen";
+import AlbumDetailScreen from "../screens/profile/AlbumDetailScreen";
 import React from "react";
 import { Routes } from "../shared/constants/routes";
 
@@ -15,6 +16,7 @@ const Navigation = () => {
                 <Stack.Screen name={Routes.SPLASH} component={SplashScreen} />
                 <Stack.Screen name={Routes.HOME} component={UsersScreen} />
                 <Stack.Screen name={Routes.PROFILE} component={ProfileScreen} />
+                <Stack.Screen name={Routes.ALBUMDETAIL} component={AlbumDetailScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
