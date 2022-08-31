@@ -18,7 +18,7 @@ const UsersScreen = () => {
     const [list, setlist] = useState<User[]>([])
     // const { receiveUsersList, } = UsersHook()
     const { users: { listOfUsers, listOfUsersLoading, setSelectedUser },
-        profile: { listOfAlbumsLoading }
+        // profile: { listOfAlbumsLoading }
     } = useMobxStore();
 
 

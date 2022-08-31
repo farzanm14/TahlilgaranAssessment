@@ -8,6 +8,7 @@ export class PostsStore implements IStore {
      */
     @observable listOfPosts: Post[] = [];
     @observable listOfPostsLoading: boolean = true;
+    @observable selectedPost: Post | null = null;
 
     /**
      * functions
@@ -20,6 +21,9 @@ export class PostsStore implements IStore {
     @action setListOfPostsLoading = (value: boolean): void => {
         this.listOfPostsLoading = value
     }
+    @action setSelectedPost = (value: Post): void => {
+        this.selectedPost = value
+    }
 
 
     constructor() {
@@ -28,7 +32,7 @@ export class PostsStore implements IStore {
         makePersistable(this, {
             name: PostsStore.name,
             properties: [
-                "listOfPosts", "listOfPostsLoading",
+                "listOfPosts", "listOfPostsLoading", "selectedPost"
             ]
         });
     }

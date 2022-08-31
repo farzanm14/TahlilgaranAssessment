@@ -1,10 +1,12 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { responsiveWidth as rw, responsiveHeight as rh } from "react-native-responsive-dimensions";
 import { CommentIcon } from '../../../assets/icons';
 import { EmptyState, Text } from '../../../shared/components';
 import Loading from '../../../shared/components/LoadingState';
 import { EndPoints } from "../../../shared/constants/endpoints";
+import { Routes } from '../../../shared/constants/routes';
 import HttpHandler from "../../../shared/services/HttpHandler";
 import colors from '../../../shared/theme/colors';
 import { Comment, HttpRequest, Post } from '../../../shared/types';
@@ -17,6 +19,7 @@ interface PostItemProps {
     // onPress?: () => void
 }
 const PostItem = ({ post }: PostItemProps) => {
+    const { navigate } = useNavigation()
     const [showComments, setShowComments] = useState(false)
     const [showCommentsLoading, setShowCommentsLoading] = useState(false)
     const [selectedPostComments, setSelectedPostComments] = useState<Comment[]>([])
@@ -82,13 +85,18 @@ const PostItem = ({ post }: PostItemProps) => {
         )
     }
 
+
+    function moveToEditPost() {
+        navigate(Routes.EDITPOST, { isEditMode: true })
+        //better to show bottomsheet
+    }
     return (
-        <View style={styles.container}>
+        <Pressable style={styles.container} onLongPress={moveToEditPost}>
             <Text style={styles.postTitle}>{post.title}</Text>
             <Text light>{post.body}</Text>
             <CommentIconButton />
             {showComments && <Comments />}
-        </View>
+        </Pressable>
     )
 }
 

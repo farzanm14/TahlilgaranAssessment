@@ -31,7 +31,7 @@ const PostsTab = () => {
     )
 
     const moveToCreateNewPhoto = () => {
-        navigate(Routes.EDITPOST)
+        navigate(Routes.EDITPOST, { isEditMode: false })
     }
 
     const FabAddBtn = () => {

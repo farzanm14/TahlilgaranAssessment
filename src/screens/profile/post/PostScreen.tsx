@@ -19,7 +19,7 @@ const SinglePostScreen = () => {
 
     const moveToEditPhoto = () => {
         console.log("moveToEditPhoto", selectedPhoto);
-        navigate(Routes.EDITPOST)
+        navigate(Routes.EDITPOST, { isEditMode: true })
     }
 
     const Body = () => {
