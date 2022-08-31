@@ -3,6 +3,7 @@ import { LogBox, StatusBar } from 'react-native';
 import Navigation from './src/navigation/NavigationContainer';
 import { Container } from './src/shared/components';
 import { hydrateStores, MobxStoreProvider } from './src/stores';
+import { Host, } from 'react-native-portalize';
 
 LogBox.ignoreAllLogs();
 
@@ -14,10 +15,12 @@ const App = () => {
 
   return (
     <MobxStoreProvider>
-      <Container>
-        <StatusBar barStyle={'light-content'} />
-        <Navigation />
-      </Container>
+      <Host>
+        <Container>
+          <StatusBar barStyle={'light-content'} />
+          <Navigation />
+        </Container>
+      </Host>
     </MobxStoreProvider>
   );
 };

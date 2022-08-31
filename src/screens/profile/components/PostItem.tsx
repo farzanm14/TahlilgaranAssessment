@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { responsiveWidth as rw, responsiveHeight as rh } from "react-native-responsive-dimensions";
-import { CommentIcon, EditIcon } from '../../../assets/icons';
+import { CommentIcon, DeleteIcon, EditIcon, MoreIcon, PostIcon } from '../../../assets/icons';
 import { EmptyState, Text } from '../../../shared/components';
 import Loading from '../../../shared/components/LoadingState';
 import { EndPoints } from "../../../shared/constants/endpoints";
@@ -13,7 +13,8 @@ import { Comment, HttpRequest, Post } from '../../../shared/types';
 import { useMobxStore } from '../../../stores';
 import CommentItem from './CommentItem';
 import CommentsList from '../post/CommentsList';
-
+import { Host, Portal } from 'react-native-portalize';
+import { Modalize } from 'react-native-modalize';
 interface PostItemProps {
     post: Post,
     // onPress?: () => void
@@ -21,6 +22,14 @@ interface PostItemProps {
 const PostItem = ({ post }: PostItemProps) => {
     const { navigate } = useNavigation()
     const { post: { setSelectedPost }, } = useMobxStore();
+    const modalizeRef = useRef<Modalize>(null);
+
+    const onOpen = () => {
+        modalizeRef.current?.open();
+    };
+    const onClose = () => {
+        modalizeRef.current?.close();
+    };
 
 
     function moveToEditPost() {
@@ -33,7 +42,36 @@ const PostItem = ({ post }: PostItemProps) => {
         navigate(Routes.POST)
         //better to show bottomsheet
     }
-    function openBottomSheet() { }
+    function openBottomSheet() {
+        onOpen()
+    }
+
+    function PhotoItemActionSheet() {
+        return (
+            <Portal>
+                <Modalize ref={modalizeRef} adjustToContentHeight={true}>
+                    <View style={styles.optionsContainer}>
+                        <Text light style={styles.bshTitle}>Post Options</Text>
+
+                        <Pressable style={styles.bottomSheetItem} onPress={() => moveToPreviewPost()}>
+                            <PostIcon style={styles.bottomSheetIcon} size={rw(5)} />
+                            <Text style={styles.btmshtext}>preview </Text>
+                        </Pressable>
+
+                        <Pressable style={styles.bottomSheetItem} onPress={() => moveToEditPost()}>
+                            <EditIcon style={styles.bottomSheetIcon} size={rw(5)} />
+                            <Text style={styles.btmshtext}>edit </Text>
+                        </Pressable>
+
+                        <Pressable style={styles.bottomSheetItem}>
+                            <DeleteIcon style={styles.bottomSheetIcon} size={rw(5)} />
+                            <Text style={styles.btmshtext}>delete </Text>
+                        </Pressable>
+                    </View>
+                </Modalize>
+            </Portal>
+        )
+    }
 
     return (
         <View style={styles.container}
@@ -41,10 +79,11 @@ const PostItem = ({ post }: PostItemProps) => {
         >
             <View style={styles.editBtnTitle}>
                 <Text style={styles.postTitle}>{post.title}</Text>
-                <EditIcon size={rw(4)} onPress={openBottomSheet} />
+                <MoreIcon size={rw(4)} onPress={() => openBottomSheet()} />
             </View>
             <Text light>{post.body}</Text>
             <CommentsList post={post} />
+            <PhotoItemActionSheet />
         </View>
     )
 }
@@ -75,5 +114,24 @@ const styles = StyleSheet.create({
     }, editBtnTitle: {
         flexDirection: "row",
         justifyContent: 'space-between'
+    }, bottomSheetItem: {
+        flexDirection: 'row',
+        marginVertical: rw(2),
+        marginHorizontal: rw(4),
+        // justifyContent: 'flex-start',
+        alignItems: 'center',
+    }, optionsContainer: {
+        marginVertical: rh(5),
+        marginHorizontal: rw(5)
+    }, bottomSheetIcon: {
+
+    }, bshTitle: {
+        color: colors.primaryDark,
+        marginBottom: rh(3)
+
+    }, btmshtext: {
+        marginHorizontal: rw(2),
+
     }
+
 })

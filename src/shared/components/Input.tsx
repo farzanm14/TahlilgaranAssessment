@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, TextInput, TextInputProps, TextStyle, View, ViewProps, ViewStyle } from "react-native";
+import { StyleSheet, TextInput, TextStyle, View, ViewStyle } from "react-native";
 import colors from "../theme/colors";
 import Text from "./Text";
 import { responsiveWidth as rw, responsiveHeight as rh } from "react-native-responsive-dimensions";
@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: colors.greyLight,
         color: colors.primaryDarkText,
-        padding: rw(3),
+        // padding: rw(3),
         alignContent: 'flex-start',
     }, containerStyle: {
-        marginVertical: rh(2)
+        // marginVertical: 15,//rh(2)
     }, labelStyle: {
-        marginVertical: rh(0.5),
+        // marginVertical: 10,//rh(0.5),
         marginHorizontal: rw(2)
     }
 });

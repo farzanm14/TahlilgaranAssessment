@@ -12,7 +12,7 @@ const SplashScreen = () => {
     const { users: { listOfUsersLoading, } } = useMobxStore();
     const [requestHasFinished, setrequestHasFinished] = useState(false)
     // useEffect(() => { }, [listOfUsersLoading])
-    console.log("listOfUsersLoading", listOfUsersLoading);
+    // console.log("listOfUsersLoading", listOfUsersLoading);
 
     useEffect(() => {
         setTimeout(() => {

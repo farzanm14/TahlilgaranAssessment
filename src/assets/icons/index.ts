@@ -5,6 +5,8 @@ import PostIcon from "./PostIcon";
 import CreateIcon from "./CreateIcon";
 import ProfileIcon from "./ProfileIcon";
 import SendIcon from "./SendIcon";
+import DeleteIcon from "./DeleteIcon";
+import MoreIcon from "./MoreIcon";
 
 export {
     EditIcon,
@@ -14,4 +16,6 @@ export {
     CreateIcon,
     ProfileIcon,
     SendIcon,
+    DeleteIcon,
+    MoreIcon,
 }
