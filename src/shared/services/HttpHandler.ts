@@ -26,7 +26,7 @@ api.interceptors.request.use(function (config) {
 const HttpHandler = {
     async Request(method: HttpRequest, endPoint: string, data?: any) {
 
-        // console.info("____HTTP____ ", method + " ____ " + baseUrl + endPoint, data);
+        console.info("____HTTP____ ", method + " ____ " + baseUrl + endPoint);
         let headers = {
             'Content-type': 'application/json; charset=UTF-8',
         }

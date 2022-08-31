@@ -3,6 +3,7 @@ import Comment from "./Comment";
 import Album from "./Album";
 import Photo from "./Photo";
 import Post from "./Post";
+import { HttpRequest } from "./HttpRequest";
 
 export {
     User,
@@ -10,4 +11,5 @@ export {
     Album,
     Photo,
     Post,
+    HttpRequest,
 }

@@ -1,29 +1,25 @@
 import { action, makeAutoObservable, observable } from 'mobx';
 import { hydrateStore, makePersistable } from 'mobx-persist-store';
-import { Album, Comment, Photo } from '../shared/types';
+import { Post } from '../shared/types';
 
 export class PostsStore implements IStore {
     /**
      * states
      */
-    @observable selectedPhoto: Photo | null = null;
-    @observable commentsList: Comment[] = [];
-    @observable commentsListLoading: boolean = true;
+    @observable listOfPosts: Post[] = [];
+    @observable listOfPostsLoading: boolean = true;
 
     /**
      * functions
      */
-    @action setSelectedPhoto = (value: Photo): void => {
-        this.selectedPhoto = value;
-    };
-    @action setCommentsList = (value: Comment[]): void => {
-        this.commentsList = value;
-        this.commentsListLoading = false;
-    };
-    @action setCommentsListLoading = (value: boolean): void => {
-        this.commentsListLoading = value
-    }
 
+    @action setListOfPosts = (value: Post[]): void => {
+        this.listOfPosts = value;
+        this.listOfPostsLoading = false;
+    };
+    @action setListOfPostsLoading = (value: boolean): void => {
+        this.listOfPostsLoading = value
+    }
 
 
     constructor() {
@@ -32,10 +28,8 @@ export class PostsStore implements IStore {
         makePersistable(this, {
             name: PostsStore.name,
             properties: [
-                'selectedPhoto',
-                'commentsList',
-                'commentsListLoading'
-            ],
+                "listOfPosts", "listOfPostsLoading",
+            ]
         });
     }
 

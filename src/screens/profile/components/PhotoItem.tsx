@@ -3,6 +3,7 @@ import React from 'react'
 import { Photo } from '../../../shared/types';
 import { Image, Text } from '../../../shared/components';
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
+import colors from '../../../shared/theme/colors';
 
 type PhotoProps = {
     photo: Photo;
@@ -12,7 +13,7 @@ type PhotoProps = {
 function PhotoItem({ photo, onPress }: PhotoProps): JSX.Element {
     return (
         <Pressable style={styles.photoItemContainer} onPress={onPress}>
-            <Image size={rw(20)} source={{ uri: photo.thumbnailUrl }} />
+            <Image size={rw(20)} style={styles.image} source={{ uri: photo.thumbnailUrl }} />
             <Text small style={styles.title}>{photo.title}</Text>
         </Pressable>
     )
@@ -22,10 +23,17 @@ export default PhotoItem;
 
 const styles = StyleSheet.create({
     photoItemContainer: {
-        // alignItems: 'center',
-        justifyContent: 'center',
-        padding: rw(2)
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        padding: rw(2),
+        borderColor: colors.greyLight,
+        borderWidth: 0.5,
+        borderRadius: 10,
+        // backgroundColor: 'red',
+        marginVertical: rh(0.3)
     }, title: {
-        width: '100%',
+        width: rw(25),
+    }, image: {
+        borderRadius: 10,
     }
 })

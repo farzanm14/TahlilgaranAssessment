@@ -1,5 +1,6 @@
 import { EndPoints } from "../shared/constants/endpoints"
 import HttpHandler from "../shared/services/HttpHandler"
+import { Album } from "../shared/types"
 import { HttpRequest } from "../shared/types/HttpRequest"
 import { useMobxStore } from "../stores"
 
@@ -7,14 +8,16 @@ const ProfileHook = () => {
     const {
         profile: { setListOfAlbums, setListOfAlbumsLoading, selectedAlbum },
         users: { selectedUser },
-        album: { setSelectedAlbumPhotos, setSelectedAlbumPhotosLoading },
-        post: { selectedPhoto, setCommentsList, setCommentsListLoading },
+        album: { setSelectedAlbumPhotos, setSelectedAlbumPhotosLoading, selectedPhoto, setCommentsList, setCommentsListLoading },
+        post: { setListOfPosts, setListOfPostsLoading }
     } = useMobxStore();
 
-    async function receiveAlbumsList() {
+    async function receiveAlbumsList(theSelectedUser) {
         setListOfAlbumsLoading(true)
+        // https://jsonplaceholder.typicode.com/users/5/albums/
 
-        HttpHandler.Request(HttpRequest.GET, EndPoints.profile.albums + `?userId=${selectedUser?.id}`)
+        // HttpHandler.Request(HttpRequest.GET, EndPoints.home.users + `/${selectedUser?.id}/` + EndPoints.profile.albums)
+        HttpHandler.Request(HttpRequest.GET, `users/${theSelectedUser?.id}/albums`)
             .then(res => {
                 console.log("___ receiveAlbumsList ___ res  :  ", res?.data)
                 setListOfAlbums(res?.data)
@@ -25,19 +28,19 @@ const ProfileHook = () => {
             })
     }
     async function receivePostsList() {
-        setListOfAlbumsLoading(true)
-
-        HttpHandler.Request(HttpRequest.GET, EndPoints.profile.albums + `?userId=${selectedUser?.id}`)
+        setListOfPostsLoading(true)
+        // https://jsonplaceholder.typicode.com/users/5/posts/
+        HttpHandler.Request(HttpRequest.GET, `users/${selectedUser?.id}/posts`)
             .then(res => {
                 console.log("___ receivePostsList ___ res  :  ", res?.data)
-                setListOfAlbums(res?.data)
+                setListOfPosts(res?.data)
             }).catch(err => {
                 console.log("___ receivePostsList ___ error  :  ", err?.data)
             }).finally(() => {
-                setListOfAlbumsLoading(false)
+                setListOfPostsLoading(false)
             })
     }
-    async function receiveSelectedAlbumPhotos() {
+    async function receiveSelectedAlbumPhotos(selectedAlbum: Album) {
         setSelectedAlbumPhotosLoading(true)
         HttpHandler.Request(HttpRequest.GET, EndPoints.home.users + `/${selectedUser?.id}/photos?albumId=${selectedAlbum?.id}`)
             .then(res => {

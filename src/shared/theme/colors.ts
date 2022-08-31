@@ -5,6 +5,7 @@ export default {
     primaryLight: '#ef5350',
     primary: '#ba000d',
     primaryDark: '#8e0000',
+    primaryDarkest: '#660000',
 
     primaryText: '#F9F9F9',
     primaryDarkText: '#030303',

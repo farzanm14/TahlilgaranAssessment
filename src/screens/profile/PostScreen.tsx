@@ -14,7 +14,7 @@ const SinglePostScreen = () => {
     const { goBack, navigate } = useNavigation()
     const {
         users: { selectedUser },
-        post: { selectedPhoto, commentsList }
+        album: { selectedPhoto, commentsList }
     } = useMobxStore();
 
     const moveToEditPhoto = () => {
@@ -90,7 +90,7 @@ const SinglePostScreen = () => {
             <ScrollView>
                 <PostImage />
                 <Body />
-                <Comments />
+                {/* <Comments /> */}
             </ScrollView>
             <FabEditBtn />
         </Container>
@@ -117,11 +117,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: rh(35)
     }, imageContainer: {
-        backgroundColor: colors.grey,
         width: postImageSize,
-        // height: postImageSize,
+        borderRadius: 10,
         alignSelf: 'center'
     }, postImage: {
+        borderRadius: 10
     }, commentsContainer: {
 
     }, bodyContainer: {

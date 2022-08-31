@@ -16,15 +16,17 @@ const AlbumDetailScreen = () => {
   const { receiveSelectedPhotoComments } = ProfileHook()
   const {
     profile: { selectedAlbum, },
-    post: { setSelectedPhoto, commentsListLoading },
-    album: { selectedAlbumPhotos },
+    album: { selectedAlbumPhotos, setSelectedPhoto, commentsListLoading },
   } = useMobxStore();
 
   const moveToSelectedPhoto = async (selectedPhoto: Photo) => {
     console.log("moveToSelectedPhoto", selectedPhoto);
     setSelectedPhoto(selectedPhoto)
-    await receiveSelectedPhotoComments()
-    !commentsListLoading && navigate(Routes.POST)
+    // receiveSelectedPhotoComments()
+    // !commentsListLoading && 
+    setTimeout(() => {
+      navigate(Routes.POST)
+    }, 500);
   }
 
   const renderItem = ({ item }: Photo) => (
@@ -51,10 +53,13 @@ const AlbumDetailScreen = () => {
         extraData={selectedAlbumPhotos}
         renderItem={renderItem}
         style={styles.list}
-
+        numColumns={3}
+        fadingEdgeLength={rh(10)}
+        columnWrapperStyle={styles.columnWrapperStyle}
         stickyHeaderIndices={[0]}
         stickyHeaderHiddenOnScroll={true}
         ListHeaderComponent={<Header />}
+        contentContainerStyle={styles.contentContainerStyle}
         ListEmptyComponent={
           // selectedAlbumPhotosLoading ?<Loading /> :
           <EmptyState message={"there isn't any photo"} />}
@@ -67,7 +72,8 @@ export default AlbumDetailScreen;
 
 const styles = StyleSheet.create({
   list: {
-    marginTop: rh(3)
+    marginTop: rh(3),
+    flex: 1, alignSelf: 'stretch'
   }, headerContainer: {
     paddingHorizontal: rw(3),
     paddingVertical: rh(2),
@@ -84,5 +90,11 @@ const styles = StyleSheet.create({
   }, headerIcons: {
     flexDirection: 'row'
 
+  }, columnWrapperStyle: {
+    // flexWrap: "wrap",
+    justifyContent: 'space-around',
+    // backgroundColor: 'green',
+  }, contentContainerStyle: {
+    // backgroundColor: 'red'
   }
 })

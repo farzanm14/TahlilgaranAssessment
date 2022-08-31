@@ -12,14 +12,16 @@ import AlbumItem from '../components/AlbumItem';
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
 
 const AlbumsTab = () => {
-    const { profile: { listOfAlbums, listOfAlbumsLoading, setSelectedAlbum },
+    const {
+        users: { selectedUser },
+        profile: { listOfAlbums, listOfAlbumsLoading, setSelectedAlbum },
         album: { selectedAlbumPhotosLoading }
     } = useMobxStore();
     const { receiveAlbumsList, receiveSelectedAlbumPhotos, } = ProfileHook()
     const { navigate } = useNavigation()
 
     // useEffect(() => {
-    //     receiveAlbumsList()
+    //     receiveAlbumsList(selectedUser)
     // }, [])
 
     // useEffect(() => {
@@ -28,8 +30,9 @@ const AlbumsTab = () => {
     const moveToSelectedAlbum = async (selectedAlbum: Album) => {
         console.log("moveToselectedAlbumProfile", selectedAlbum);
         setSelectedAlbum(selectedAlbum)
-        await receiveSelectedAlbumPhotos()
-        !selectedAlbumPhotosLoading && navigate(Routes.ALBUMDETAIL)
+        receiveSelectedAlbumPhotos(selectedAlbum)
+        // !selectedAlbumPhotosLoading && 
+        navigate(Routes.ALBUMDETAIL)
 
     }
 
@@ -44,10 +47,10 @@ const AlbumsTab = () => {
             extraData={listOfAlbums}
             renderItem={renderItem}
             style={styles.list}
-            // numColumns={3}
+            // numColumns={3} 
             // columnWrapperStyle={{ width: '100%', justifyContent: 'space-around' }}
             stickyHeaderIndices={[0]}
-            stickyHeaderHiddenOnScroll={true}
+            stickyHeaderHiddenOnScroll={false}
             ListEmptyComponent={listOfAlbumsLoading ?
                 <Loading /> :
                 <EmptyState message={"there isn't any album"} />}
