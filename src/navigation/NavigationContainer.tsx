@@ -6,9 +6,10 @@ import { Routes } from "../shared/constants/routes";
 import SplashScreen from "../screens/auth/SplashScreen";
 import UsersScreen from "../screens/home/UsersScreen";
 import ProfileScreen from "../screens/profile/ProfileScreen";
-import AlbumDetailScreen from "../screens/profile/AlbumDetailScreen";
-import PostScreen from "../screens/profile/PostScreen";
-import EditPostScreen from "../screens/profile/EditPostScreen";
+import AlbumDetailScreen from "../screens/profile/album/AlbumDetailScreen";
+import PostScreen from "../screens/profile/post/PostScreen";
+import PhotoScreen from "../screens/profile/album/SinglePhotoScreen";
+import EditPostScreen from "../screens/profile/post/EditPostScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ const Navigation = () => {
                 <Stack.Screen name={Routes.ALBUMDETAIL} component={AlbumDetailScreen} />
                 <Stack.Screen name={Routes.POST} component={PostScreen} />
                 <Stack.Screen name={Routes.EDITPOST} component={EditPostScreen} />
+                <Stack.Screen name={Routes.SINGLEPHOTO} component={PhotoScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -2,13 +2,13 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { FlatList, Pressable, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
-import { BackIcon, EditIcon } from '../../assets/icons'
-import { Container, EmptyState, FabButton, Image, Text } from '../../shared/components'
-import { Routes } from '../../shared/constants/routes'
-import colors from '../../shared/theme/colors'
-import { Comment } from '../../shared/types'
-import { useMobxStore } from '../../stores'
-import CommentItem from './components/CommentItem'
+import { BackIcon, EditIcon } from '../../../assets/icons'
+import { Container, EmptyState, FabButton, Image, Text } from '../../../shared/components'
+import { Routes } from '../../../shared/constants/routes'
+import colors from '../../../shared/theme/colors'
+import { Comment } from '../../../shared/types'
+import { useMobxStore } from '../../../stores'
+import CommentItem from '../components/CommentItem'
 
 const SinglePostScreen = () => {
     const { goBack, navigate } = useNavigation()
@@ -45,7 +45,7 @@ const SinglePostScreen = () => {
                     renderItem={renderItem}
                     style={styles.list}
 
-                    stickyHeaderIndices={[0]}
+
                     stickyHeaderHiddenOnScroll={true}
                     // ListHeaderComponent={<Header />}
                     ListEmptyComponent={

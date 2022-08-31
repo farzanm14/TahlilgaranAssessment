@@ -2,14 +2,14 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
-import { BackIcon } from '../../assets/icons'
-import ProfileHook from '../../hooks/ProfileHook'
-import { Container, EmptyState, Text } from '../../shared/components'
-import { Routes } from '../../shared/constants/routes'
-import colors from '../../shared/theme/colors'
-import { Photo } from '../../shared/types'
-import { useMobxStore } from '../../stores'
-import PhotoItem from './components/PhotoItem'
+import { BackIcon } from '../../../assets/icons'
+import ProfileHook from '../../../hooks/ProfileHook'
+import { Container, EmptyState, Text } from '../../../shared/components'
+import { Routes } from '../../../shared/constants/routes'
+import colors from '../../../shared/theme/colors'
+import { Photo } from '../../../shared/types'
+import { useMobxStore } from '../../../stores'
+import PhotoItem from '../components/PhotoItem'
 
 const AlbumDetailScreen = () => {
   const { goBack, navigate } = useNavigation()
@@ -25,7 +25,7 @@ const AlbumDetailScreen = () => {
     // receiveSelectedPhotoComments()
     // !commentsListLoading && 
     setTimeout(() => {
-      navigate(Routes.POST)
+      navigate(Routes.SINGLEPHOTO)
     }, 500);
   }
 
@@ -56,7 +56,7 @@ const AlbumDetailScreen = () => {
         numColumns={3}
         fadingEdgeLength={rh(10)}
         columnWrapperStyle={styles.columnWrapperStyle}
-        stickyHeaderIndices={[0]}
+
         stickyHeaderHiddenOnScroll={true}
         ListHeaderComponent={<Header />}
         contentContainerStyle={styles.contentContainerStyle}

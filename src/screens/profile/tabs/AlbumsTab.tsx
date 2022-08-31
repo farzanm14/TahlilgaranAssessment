@@ -49,7 +49,7 @@ const AlbumsTab = () => {
             style={styles.list}
             // numColumns={3} 
             // columnWrapperStyle={{ width: '100%', justifyContent: 'space-around' }}
-            stickyHeaderIndices={[0]}
+
             stickyHeaderHiddenOnScroll={false}
             ListEmptyComponent={listOfAlbumsLoading ?
                 <Loading /> :

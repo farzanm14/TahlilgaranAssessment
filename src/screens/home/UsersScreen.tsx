@@ -21,15 +21,16 @@ const UsersScreen = () => {
         profile: { listOfAlbumsLoading }
     } = useMobxStore();
 
-    // useEffect(() => {
-    //     setlist(listOfUsers)
-    // }, [listOfAlbumsLoading])
+
+    useEffect(() => {
+        setlist(listOfUsers)
+    }, [])
 
     const { receiveAlbumsList, receivePostsList } = ProfileHook()
 
     const moveToSelectedUserProfile = async (selectedUser: User) => {
         setSelectedUser(selectedUser)
-        await receiveAlbumsList()
+        await receiveAlbumsList(selectedUser)
         // await receivePostsList()
         // !listOfAlbumsLoading && 
         navigation.dispatch(
@@ -56,8 +57,6 @@ const UsersScreen = () => {
                 extraData={list}
                 renderItem={renderItem}
                 style={styles.list}
-
-                stickyHeaderIndices={[0]}
                 stickyHeaderHiddenOnScroll={true}
                 ListHeaderComponent={<Header />}
                 ListEmptyComponent={listOfUsersLoading ? <Loading /> :

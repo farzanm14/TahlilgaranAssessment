@@ -8,4 +8,5 @@ export const Routes = {
   ALBUMDETAIL: "AlbumDetailScreen",
   POST: "PostScreen",
   EDITPOST: "EditPostScreen",
+  SINGLEPHOTO: "PhotoScreen",
 };
