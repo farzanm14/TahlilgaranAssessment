@@ -8,6 +8,7 @@ import EmptyState from './EmptyState'
 import IconicAvatar from './IconicAvatar'
 import FabButton from './FabButton'
 import Input from './Input'
+import { showFlashMessage } from './FlashMessage'
 
 export {
     Text,
@@ -20,4 +21,5 @@ export {
     IconicAvatar,
     FabButton,
     Input,
+    showFlashMessage
 }

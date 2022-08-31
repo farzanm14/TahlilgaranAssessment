@@ -1,11 +1,13 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, TextInput, View } from 'react-native'
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
 import { BackIcon } from '../../../assets/icons'
-import { Button, Container, Input, Text } from '../../../shared/components'
+import PostHook from '../../../hooks/PostHook'
+import { Button, Container, Input, showFlashMessage, Text } from '../../../shared/components'
 import YesNoModal from '../../../shared/components/YesNoModal'
 import colors from '../../../shared/theme/colors'
+import { Post } from '../../../shared/types'
 import { useMobxStore } from '../../../stores'
 
 const EditPostScreen = ({ route }) => {
@@ -13,12 +15,15 @@ const EditPostScreen = ({ route }) => {
     const { isEditMode } = route?.params
     const {
         users: { selectedUser },
-        post: { selectedPost }
+        post: { selectedPost, createNewPostLoading }
     } = useMobxStore();
 
-    const [nameInput, setNameInput] = useState("")
-    const [bodyInput, setBodyInput] = useState("")
+    const [nameInput, setNameInput] = useState<string>("")
+    const [bodyInput, setBodyInput] = useState<string>("")
     const [showDiscardModal, setShowDiscardModal] = useState(false)
+    const [phone, setPhoneNumber] = useState('')
+
+    const { createNewPostApi, editSelectedPostApi } = PostHook()
 
     useEffect(() => {
         if (isEditMode) {
@@ -28,39 +33,63 @@ const EditPostScreen = ({ route }) => {
     }, [])
 
 
-    const TitleInput = () => {
-        return (
-            <Input
-                label='title'
-                value={nameInput}
-                textArea={false}
-                placeholder="title of your post ..."
-                onChangeText={(value: string) => setNameInput(value)}
+    const TitleInput = () => (
+        // <Input
+        //     label='title'
+        //     value={nameInput}
+        //     textArea={false}
+        //     maxLength={30}
+        //     placeholder="title of your post ..."
+        //     onChangeText={(value: string) => setNameInput(value)}
+        // />
+        <View style={[styles.containerStyle]}>
+            <Text style={[styles.labelStyle]}>title</Text>
+            <TextInput
+                style={styles.textInput}
+                placeholder={'title of your post ...'}
+                placeholderTextColor={colors.greyLight}
+                value={phone}
+                onChangeText={(value: string) => setPhoneNumber(value)}
             />
-        );
-    };
-    const BodyInput = () => {//TODO :need to change keyboard btn and inputs text style
-        return (
-            <Input
-                label='body'
-                value={bodyInput}
-                placeholder='type you description ...'
-                textArea={true}
-                onChangeText={(value: string) => setBodyInput(value)}
-            />
-        );
-    };
 
-    const Body = () => {
-        return (
-            <View style={styles.bodyContainer}>
-                <TitleInput />
-                <BodyInput />
-            </View>
-        )
+        </View>
+    );
+
+    const BodyInput = () => (//TODO :need to change keyboard btn and inputs text style
+        <Input
+            label='body'
+            value={bodyInput}
+            placeholder='type you description ...'
+            textArea={true}
+            maxLength={100}
+            onChangeText={(value: string) => setBodyInput(value)}
+        />
+    );
+
+
+    const Body = () => (
+        <View style={styles.bodyContainer}>
+            <TitleInput />
+            <BodyInput />
+        </View>
+    )
+
+
+    const onPressSaveThePost = () => {
+        if (nameInput.length == 0 || bodyInput.length == 0) {
+            showFlashMessage("Please complete all inputs", 'warning')
+            console.log("empty input");
+
+        } else {
+            let newPost: Post = {
+                title: nameInput,
+                body: bodyInput,
+                id: isEditMode ? selectedPost?.id : null,
+                userId: selectedUser?.id
+            }
+            isEditMode ? editSelectedPostApi(newPost) : createNewPostApi(newPost)
+        }
     }
-
-    const onPressSaveThePost = () => { }
     const onPressDiscardChanges = () => {
         setShowDiscardModal(true)
     }
@@ -69,7 +98,9 @@ const EditPostScreen = ({ route }) => {
         return (
             <View style={styles.buttonContainer}>
                 <Button style={styles.button} bordered title='discard' onPress={onPressDiscardChanges} />
-                <Button style={styles.button} title='save' onPress={onPressSaveThePost} />
+                {createNewPostLoading ?
+                    <Button style={styles.button} ><ActivityIndicator /></Button> :
+                    <Button style={styles.button} title='save' onPress={onPressSaveThePost} />}
             </View>
         )
     }
@@ -88,7 +119,29 @@ const EditPostScreen = ({ route }) => {
     return (
         <Container>
             <Header />
-            <Body />
+            {/* <Body /> */}
+            <View style={[styles.containerStyle]}>
+                <Text style={[styles.labelStyle]}>title</Text>
+                <TextInput
+                    style={styles.textInput}
+                    placeholder={'title of your post ...'}
+                    placeholderTextColor={colors.greyLight}
+                    value={nameInput}
+                    onChangeText={(value: string) => setNameInput(value)}
+                />
+            </View>
+            <View style={[styles.containerStyle]}>
+                <Text style={[styles.labelStyle]}>body</Text>
+                <TextInput
+                    style={styles.textInput}
+                    placeholderTextColor={colors.greyLight}
+                    value={bodyInput}
+                    placeholder='type you description ...'
+                    numberOfLines={5}
+                    maxLength={100}
+                    onChangeText={(value: string) => setBodyInput(value)}
+                />
+            </View>
             <Buttons />
             <YesNoModal
                 visible={showDiscardModal}
@@ -132,6 +185,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderColor: colors.greyLight,
+        color: colors.primaryDarkText,
+        paddingHorizontal: 15
     }, containerStyle: {
         marginVertical: rh(2)
     }, labelStyle: {

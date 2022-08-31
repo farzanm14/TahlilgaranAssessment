@@ -4,6 +4,7 @@ import Navigation from './src/navigation/NavigationContainer';
 import { Container } from './src/shared/components';
 import { hydrateStores, MobxStoreProvider } from './src/stores';
 import { Host, } from 'react-native-portalize';
+import FlashMessage from "react-native-flash-message";
 
 LogBox.ignoreAllLogs();
 
@@ -19,6 +20,7 @@ const App = () => {
         <Container>
           <StatusBar barStyle={'light-content'} />
           <Navigation />
+          <FlashMessage position="top" />
         </Container>
       </Host>
     </MobxStoreProvider>

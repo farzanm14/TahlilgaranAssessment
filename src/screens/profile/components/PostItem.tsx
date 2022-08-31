@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { responsiveWidth as rw, responsiveHeight as rh } from "react-native-responsive-dimensions";
 import { CommentIcon, DeleteIcon, EditIcon, MoreIcon, PostIcon } from '../../../assets/icons';
-import { EmptyState, Text } from '../../../shared/components';
+import { EmptyState, showFlashMessage, Text } from '../../../shared/components';
 import Loading from '../../../shared/components/LoadingState';
 import { EndPoints } from "../../../shared/constants/endpoints";
 import { Routes } from '../../../shared/constants/routes';
@@ -32,12 +32,18 @@ const PostItem = ({ post }: PostItemProps) => {
     };
 
 
+    function onPressDeleteSelectedPost() {
+        showFlashMessage('soon', 'info')
+        onClose()
+    }
     function moveToEditPost() {
+        onClose()
         setSelectedPost(post)
         navigate(Routes.EDITPOST, { isEditMode: true })
         //better to show bottomsheet
     }
     function moveToPreviewPost() {
+        onClose()
         setSelectedPost(post)
         navigate(Routes.POST)
         //better to show bottomsheet
@@ -49,7 +55,9 @@ const PostItem = ({ post }: PostItemProps) => {
     function PhotoItemActionSheet() {
         return (
             <Portal>
-                <Modalize ref={modalizeRef} adjustToContentHeight={true}>
+                <Modalize ref={modalizeRef}
+
+                    adjustToContentHeight={true}>
                     <View style={styles.optionsContainer}>
                         <Text light style={styles.bshTitle}>Post Options</Text>
 
@@ -63,7 +71,7 @@ const PostItem = ({ post }: PostItemProps) => {
                             <Text style={styles.btmshtext}>edit </Text>
                         </Pressable>
 
-                        <Pressable style={styles.bottomSheetItem}>
+                        <Pressable style={styles.bottomSheetItem} onPress={() => onPressDeleteSelectedPost()}>
                             <DeleteIcon style={styles.bottomSheetIcon} size={rw(5)} />
                             <Text style={styles.btmshtext}>delete </Text>
                         </Pressable>

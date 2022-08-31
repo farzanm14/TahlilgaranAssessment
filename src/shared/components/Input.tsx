@@ -13,9 +13,10 @@ interface Props {
     value?: string,
     placeholder?: string,
     textArea?: boolean,
+    maxLength?: number
 }
 
-const Input = ({ label, value, placeholder = "", onChangeText, containerStyle, inputStyle, labelStyle, textArea, ...prp }: Props) => {
+const Input = ({ label, value, placeholder = "", onChangeText, containerStyle, inputStyle, labelStyle, textArea, maxLength, ...prp }: Props) => {
     return (
         <View style={[styles.containerStyle, containerStyle]}>
             {label != null && <Text style={[styles.labelStyle, labelStyle]}>{label}</Text>}
@@ -27,8 +28,9 @@ const Input = ({ label, value, placeholder = "", onChangeText, containerStyle, i
                 placeholder={placeholder}
                 placeholderTextColor={colors.greyLight}
                 value={value}
+                maxLength={maxLength}
                 numberOfLines={textArea ? 5 : 1}
-                onValueChange={(value) => onChangeText(value)}
+                onChange={(value: string) => onChangeText(value)}
                 {...prp}
             />
         </View>
