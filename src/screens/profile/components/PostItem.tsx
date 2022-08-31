@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { FlatList, Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { responsiveWidth as rw, responsiveHeight as rh } from "react-native-responsive-dimensions";
-import { CommentIcon } from '../../../assets/icons';
+import { CommentIcon, EditIcon } from '../../../assets/icons';
 import { EmptyState, Text } from '../../../shared/components';
 import Loading from '../../../shared/components/LoadingState';
 import { EndPoints } from "../../../shared/constants/endpoints";
@@ -12,7 +12,7 @@ import colors from '../../../shared/theme/colors';
 import { Comment, HttpRequest, Post } from '../../../shared/types';
 import { useMobxStore } from '../../../stores';
 import CommentItem from './CommentItem';
-
+import CommentsList from '../post/CommentsList';
 
 interface PostItemProps {
     post: Post,
@@ -20,87 +20,36 @@ interface PostItemProps {
 }
 const PostItem = ({ post }: PostItemProps) => {
     const { navigate } = useNavigation()
-    const [showComments, setShowComments] = useState(false)
-    const [showCommentsLoading, setShowCommentsLoading] = useState(false)
-    const [selectedPostComments, setSelectedPostComments] = useState<Comment[]>([])
-    const {
-        users: { selectedUser },
-    } = useMobxStore();
-
-    async function receiveSelectedPostComments(userId: number, postId: number) {
-        // https://jsonplaceholder.typicode.com/users/5/comments?postId=1
-        //show loading
-        //call get request
-        //hide loading on receive comments
-
-        setShowCommentsLoading(true)
-        HttpHandler.Request(HttpRequest.GET, EndPoints.home.users + `/${userId}/comments?postId=${postId}`)
-            .then(res => {
-                console.log("___ receiveSelectedPhotoComments ___ res  :  ", res?.data)
-                setSelectedPostComments(res?.data)
-            }).catch(err => {
-                console.log("___ receiveSelectedPhotoComments ___ error  :  ", err?.data)
-            }).finally(() => {
-                setShowCommentsLoading(false)
-            })
-    }
-
-    const onPressShowComments = async (showComments: boolean) => {
-        setShowComments(showComments)
-        if (showComments) {//attempt to show comments
-            receiveSelectedPostComments(selectedUser?.id, post.id)
-        }
-    }
-
-    const AddNewComment = () => (
-        <View style={styles.commentInputContainer}>
-
-        </View>
-    )
-    const CommentIconButton = () => (
-        <TouchableOpacity disabled={!showCommentsLoading} onPress={() => onPressShowComments(!showComments)} style={styles.commentIconContainer}>
-            <CommentIcon size={15} />
-            <Text small> comments</Text>
-        </TouchableOpacity>
-    )
-
-    const Comments = () => {
-        const renderItem = ({ item }: Comment) => (
-            <CommentItem comment={item} />
-        )
-
-        return (
-            <View style={styles.commentsContainer}>
-                <FlatList<Comment>
-                    keyExtractor={(item, key) => key.toString()}
-                    data={selectedPostComments}
-                    renderItem={renderItem}
-                    style={styles.list}
-                    ListHeaderComponent={<AddNewComment />}
-                    ListEmptyComponent={
-                        showCommentsLoading ? <Loading /> :
-                            <EmptyState message={"there isn't any comment, become first one!"} />}
-                />
-            </View>
-        )
-    }
+    const { post: { setSelectedPost }, } = useMobxStore();
 
 
     function moveToEditPost() {
+        setSelectedPost(post)
         navigate(Routes.EDITPOST, { isEditMode: true })
         //better to show bottomsheet
     }
+    function moveToPreviewPost() {
+        setSelectedPost(post)
+        navigate(Routes.POST)
+        //better to show bottomsheet
+    }
+    function openBottomSheet() { }
+
     return (
-        <Pressable style={styles.container} onLongPress={moveToEditPost}>
-            <Text style={styles.postTitle}>{post.title}</Text>
+        <View style={styles.container}
+        // onPress={moveToPreviewPost} onLongPress={moveToEditPost
+        >
+            <View style={styles.editBtnTitle}>
+                <Text style={styles.postTitle}>{post.title}</Text>
+                <EditIcon size={rw(4)} onPress={openBottomSheet} />
+            </View>
             <Text light>{post.body}</Text>
-            <CommentIconButton />
-            {showComments && <Comments />}
-        </Pressable>
+            <CommentsList post={post} />
+        </View>
     )
 }
 
-export default PostItem
+export default PostItem;
 
 const styles = StyleSheet.create({
     container: {
@@ -123,5 +72,8 @@ const styles = StyleSheet.create({
     }, postTitle: {
         color: colors.primaryDarkest,
         fontWeight: '500'
+    }, editBtnTitle: {
+        flexDirection: "row",
+        justifyContent: 'space-between'
     }
 })

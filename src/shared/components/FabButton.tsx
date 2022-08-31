@@ -28,10 +28,10 @@ export default FabButton;
 
 const styles = StyleSheet.create({
     fabContainer: {
-        width: rw(20),
-        height: rw(20),
+        width: rw(15),
+        height: rw(15),
         backgroundColor: colors.greyLight,
-        borderRadius: rw(20) / 2,
+        borderRadius: rw(15) / 2,
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',

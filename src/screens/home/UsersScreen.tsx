@@ -14,7 +14,6 @@ import UserItem from './components/UserItem'
 
 const UsersScreen = () => {
     const navigation = useNavigation()
-    const [moveToNextScreen, setMoveToNextScreen] = useState<boolean>(false)
     const [list, setlist] = useState<User[]>([])
     // const { receiveUsersList, } = UsersHook()
     const { users: { listOfUsers, listOfUsersLoading, setSelectedUser },

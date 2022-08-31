@@ -1,24 +1,22 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { FlatList, Pressable, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
 import { BackIcon, EditIcon } from '../../../assets/icons'
-import { Container, EmptyState, FabButton, Image, Text } from '../../../shared/components'
+import { Container, FabButton, Text } from '../../../shared/components'
 import { Routes } from '../../../shared/constants/routes'
 import colors from '../../../shared/theme/colors'
-import { Comment } from '../../../shared/types'
 import { useMobxStore } from '../../../stores'
-import CommentItem from '../components/CommentItem'
+import CommentsList from './CommentsList'
 
 const SinglePostScreen = () => {
     const { goBack, navigate } = useNavigation()
     const {
         users: { selectedUser },
-        album: { selectedPhoto, commentsList }
+        post: { selectedPost }
     } = useMobxStore();
 
     const moveToEditPhoto = () => {
-        console.log("moveToEditPhoto", selectedPhoto);
         navigate(Routes.EDITPOST, { isEditMode: true })
     }
 
@@ -26,40 +24,8 @@ const SinglePostScreen = () => {
         return (
             <View style={styles.bodyContainer}>
                 <Text bold>{selectedUser?.name}</Text>
-                <Text light>{selectedPhoto?.title}</Text>
-            </View>
-        )
-    }
-
-    const Comments = () => {
-        const renderItem = ({ item }: Comment) => (
-            <CommentItem comment={item} />
-        )
-
-        return (
-            <View style={styles.commentsContainer}>
-                <FlatList<Comment>
-                    keyExtractor={(item, key) => key.toString()}
-                    data={commentsList}
-                    extraData={commentsList}
-                    renderItem={renderItem}
-                    style={styles.list}
-
-
-                    stickyHeaderHiddenOnScroll={true}
-                    // ListHeaderComponent={<Header />}
-                    ListEmptyComponent={
-                        // selectedAlbumPhotosLoading ?<Loading /> :
-                        <EmptyState message={"there isn't any comment, become first one!"} />}
-                />
-            </View>
-        )
-    }
-
-    const PostImage = () => {
-        return (
-            <View style={styles.imageContainer}>
-                <Image size={postImageSize} style={styles.postImage} source={{ uri: selectedPhoto?.url }} />
+                <Text light>{selectedPost?.title}</Text>
+                <Text light>{selectedPost?.body}</Text>
             </View>
         )
     }
@@ -88,9 +54,8 @@ const SinglePostScreen = () => {
         <Container>
             <Header />
             <ScrollView>
-                <PostImage />
                 <Body />
-                {/* <Comments /> */}
+                <CommentsList post={selectedPost} />
             </ScrollView>
             <FabEditBtn />
         </Container>
@@ -116,12 +81,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         marginTop: rh(35)
-    }, imageContainer: {
-        width: postImageSize,
-        borderRadius: 10,
-        alignSelf: 'center'
-    }, postImage: {
-        borderRadius: 10
     }, commentsContainer: {
 
     }, bodyContainer: {

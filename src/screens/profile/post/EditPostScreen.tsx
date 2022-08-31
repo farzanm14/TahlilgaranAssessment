@@ -33,12 +33,13 @@ const EditPostScreen = ({ route }) => {
             <Input
                 label='title'
                 value={nameInput}
+                textArea={false}
                 placeholder="title of your post ..."
                 onChangeText={(value: string) => setNameInput(value)}
             />
         );
     };
-    const BodyInput = () => {
+    const BodyInput = () => {//TODO :need to change keyboard btn and inputs text style
         return (
             <Input
                 label='body'
@@ -98,18 +99,14 @@ const EditPostScreen = ({ route }) => {
                 onPressYes={() => goBack()}
                 onPressNo={() => setShowDiscardModal(false)}
                 bordered />
-
         </Container>
     )
 }
 
 export default EditPostScreen;
 
-const postImageSize = rw(96)
 const styles = StyleSheet.create({
-    list: {
-        marginTop: rh(3)
-    }, headerContainer: {
+    headerContainer: {
         paddingHorizontal: rw(3),
         paddingVertical: rh(2),
         backgroundColor: colors.white,
@@ -118,18 +115,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: "center",
         alignContent: 'center',
-    }, emptyState: {
-        flex: 1,
-        alignItems: 'center',
-        marginTop: rh(35)
-    }, imageContainer: {
-        width: postImageSize,
-        borderRadius: 10,
-        alignSelf: 'center'
-    }, postImage: {
-        borderRadius: 10
-    }, commentsContainer: {
-
     }, bodyContainer: {
         marginHorizontal: rw(3),
         marginVertical: rh(1),
