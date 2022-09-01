@@ -14,6 +14,7 @@ const PostHook = () => {
             .then(res => {
                 console.log("___ createNewPostApi ___ res  :  ", res?.data)
                 setCreateNewPostLoading(false)
+                //TODO
                 //add Item to the list and then
                 //back to list or open preview screen
             }).catch(err => {
@@ -29,6 +30,7 @@ const PostHook = () => {
             .then(res => {
                 console.log("___ editSelectedPostApi ___ res  :  ", res?.data)
                 setCreateNewPostLoading(false)
+                //TODO
                 //add Item to the list and then
                 //back to list or open preview screen
             }).catch(err => {

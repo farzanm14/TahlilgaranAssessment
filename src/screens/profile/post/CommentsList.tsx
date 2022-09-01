@@ -94,7 +94,7 @@ const CommentsList = ({ post }) => {
                 data={selectedPostComments}
                 renderItem={renderItem}
                 style={styles.list}
-                ListHeaderComponent={selectedPostComments?.length != 0 ? <AddNewComment /> : <View />}
+                // ListHeaderComponent={selectedPostComments?.length != 0 ? <AddNewComment /> : <View />}
                 ListEmptyComponent={showCommentsLoading ? <ActivityIndicator /> : <NewCommentInput />} />
             }
         </View>

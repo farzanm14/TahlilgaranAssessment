@@ -138,7 +138,7 @@ const EditPostScreen = ({ route }) => {
                     value={bodyInput}
                     placeholder='type you description ...'
                     numberOfLines={5}
-                    maxLength={100}
+                    // maxLength={100}
                     onChangeText={(value: string) => setBodyInput(value)}
                 />
             </View>
