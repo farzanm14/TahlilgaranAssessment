@@ -34,6 +34,14 @@ Requirements:
   - `/stores` - each screen has separate state manager file
 
 
-## Project Structure on Flat Design provided here: https://github.com/farzanm14/TahlilgaranAssessment/blob/main/doc/ProjectTree.md 
-
-
+## Project 3rd party libraries:
+  - `mobx` - this state manger allows us to manage the application state outside of any UI framework. This makes the code decoupled, portable, and above all, easily testable.
+  - `react-native-dynamic-vector-icons` - Wrapper of react-native-vector-icons to use dynamic types 
+  - `react-native-fast-image` - Image component that handles image caching like browsers for the most part. If the server is returning proper cache control headers for images 
+  - `react-native-flash-message` -  help to easily create highly customizable flashbars, top notifications or alerts 
+  - `react-native-mmkv-storage` - An Efficient(0.0002s read/write), small & encrypted mobile key-value storage framework.
+  - `react-native-modalize` - A highly customizable modal/bottom sheet
+  - `react-native-responsive-dimensions` - Prepare resposive fontSize, height and width.
+  - `react-native-tab-view` - A cross-platform Tab View component for React Native. Implemented using react-native-pager-view on Android & iOS,
+  - `axios` - A HTTP client for making REST API calls.
+  - `react-navigation` - Provide routing and navigation between screens and stacks
