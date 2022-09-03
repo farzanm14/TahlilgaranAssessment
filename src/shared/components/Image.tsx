@@ -1,3 +1,10 @@
+/**
+ * global component to preview images
+ *  I prefer fastImage to react-natives image but I couldn't find out why it's not working
+ * 
+ * Fast image cache downloaded images and it makes faster renders
+ */
+
 import React from 'react';
 import { Image, ImageSourcePropType, StyleProp, StyleSheet } from 'react-native';
 import FastImage, { ImageStyle, Source } from 'react-native-fast-image';
@@ -11,7 +18,7 @@ export type Props = {
 
 const MyImage: React.FC<Props> = ({ style, source, size, ...rest }) => {
     return (
-        <Image//FastImage
+        <Image//FastImage 
             style={[
                 styles.baseImage,
                 size != undefined && { width: size, height: size },

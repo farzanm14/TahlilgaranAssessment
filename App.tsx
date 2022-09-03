@@ -3,8 +3,8 @@ import { LogBox, StatusBar } from 'react-native';
 import Navigation from './src/navigation/NavigationContainer';
 import { Container } from './src/shared/components';
 import { hydrateStores, MobxStoreProvider } from './src/stores';
-import { Host, } from 'react-native-portalize';
-import FlashMessage from "react-native-flash-message";
+import { Host, } from 'react-native-portalize'; //helps to preview nice bottomSheets
+import FlashMessage from "react-native-flash-message";//helps to show overlay flash messages
 
 LogBox.ignoreAllLogs();
 

@@ -1,3 +1,7 @@
+/**
+ * base and shared components cross all screens has provided here
+ */
+
 import Text from './Text'
 import Button from './Button'
 import Image from './Image'

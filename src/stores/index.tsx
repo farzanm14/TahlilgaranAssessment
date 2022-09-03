@@ -1,3 +1,11 @@
+/**
+ * the main file of applications state manager
+ * I used mobx and also mobx-persist
+ * 
+ *  this file combines all stores that divided by their usages
+ *  and keep the result in a global context that wrapped all application
+ */
+
 import React from 'react';
 
 import './_hydration';
