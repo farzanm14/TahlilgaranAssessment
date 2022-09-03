@@ -1,9 +1,9 @@
 import { StackActions, useNavigation } from '@react-navigation/native'
-import React, { useEffect, useState } from 'react'
+import { observer } from "mobx-react"
+import React from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
 import ProfileHook from '../../hooks/ProfileHook'
-import UsersHook from '../../hooks/UsersHook'
 import { Container, EmptyState, Text } from '../../shared/components'
 import Loading from '../../shared/components/LoadingState'
 import { Routes } from '../../shared/constants/routes'
@@ -14,24 +14,14 @@ import UserItem from './components/UserItem'
 
 const UsersScreen = () => {
     const navigation = useNavigation()
-    const [list, setlist] = useState<User[]>([])
-    // const { receiveUsersList, } = UsersHook()
-    const { users: { listOfUsers, listOfUsersLoading, setSelectedUser },
-        // profile: { listOfAlbumsLoading }
-    } = useMobxStore();
-
-
-    useEffect(() => {
-        setlist(listOfUsers)
-    }, [])
+    const { users: { listOfUsers, listOfUsersLoading, setSelectedUser }, } = useMobxStore();
 
     const { receiveAlbumsList, receivePostsList } = ProfileHook()
 
     const moveToSelectedUserProfile = async (selectedUser: User) => {
         setSelectedUser(selectedUser)
-        await receiveAlbumsList(selectedUser)
-        // await receivePostsList()
-        // !listOfAlbumsLoading && 
+        receiveAlbumsList(selectedUser.id)
+        receivePostsList(selectedUser.id)
         navigation.dispatch(
             StackActions.push(Routes.PROFILE)
         );
@@ -52,8 +42,8 @@ const UsersScreen = () => {
         <Container>
             <FlatList<User>
                 keyExtractor={(item, key) => key.toString()}
-                data={list}
-                extraData={list}
+                data={listOfUsers}
+                extraData={listOfUsers}
                 renderItem={renderItem}
                 style={styles.list}
                 stickyHeaderHiddenOnScroll={true}
@@ -65,7 +55,7 @@ const UsersScreen = () => {
     )
 }
 
-export default UsersScreen;
+export default observer(UsersScreen);
 
 const styles = StyleSheet.create({
     list: { marginTop: rh(3) },

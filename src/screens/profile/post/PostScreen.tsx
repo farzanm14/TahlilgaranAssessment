@@ -8,6 +8,7 @@ import { Routes } from '../../../shared/constants/routes'
 import colors from '../../../shared/theme/colors'
 import { useMobxStore } from '../../../stores'
 import CommentsList from './CommentsList'
+import { observer } from "mobx-react";
 
 const SinglePostScreen = () => {
     const { goBack, navigate } = useNavigation()
@@ -62,9 +63,8 @@ const SinglePostScreen = () => {
     )
 }
 
-export default SinglePostScreen;
+export default observer(SinglePostScreen);
 
-const postImageSize = rw(96)
 const styles = StyleSheet.create({
     list: {
         marginTop: rh(3)

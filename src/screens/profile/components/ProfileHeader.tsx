@@ -5,6 +5,7 @@ import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-resp
 import { BackIcon } from '../../../assets/icons'
 import { IconicAvatar, Text } from '../../../shared/components'
 import { useMobxStore } from '../../../stores'
+import { observer } from "mobx-react";
 
 const ProfileHeader = () => {
 
@@ -31,7 +32,7 @@ const ProfileHeader = () => {
     )
 }
 
-export default ProfileHeader;
+export default observer(ProfileHeader);
 
 const styles = StyleSheet.create({
     container: {

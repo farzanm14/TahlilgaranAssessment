@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { observer } from "mobx-react";
 import React, { useState } from 'react';
 import { ActivityIndicator, FlatList, Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions";
@@ -12,7 +12,6 @@ import { useMobxStore } from '../../../stores';
 import CommentItem from '../components/CommentItem';
 
 const CommentsList = ({ post }) => {
-    const { navigate } = useNavigation()
     const [showComments, setShowComments] = useState(false)
     const [showCommentsLoading, setShowCommentsLoading] = useState(true)
     const [showNewCommentInput, setShowNewCommentInput] = useState(false)
@@ -21,13 +20,9 @@ const CommentsList = ({ post }) => {
     const { users: { selectedUser }, } = useMobxStore();
 
     async function receiveSelectedPostComments(userId: number, postId: number) {
-        // https://jsonplaceholder.typicode.com/users/5/comments?postId=1
         //show loading
         //call get request
         //hide loading on receive comments
-        console.log("post", post);
-        console.log("postId", postId);
-
         setShowCommentsLoading(true)
         HttpHandler.Request(HttpRequest.GET, EndPoints.home.users + `/${userId}/comments?postId=${postId}`)
             .then(res => {
@@ -102,7 +97,7 @@ const CommentsList = ({ post }) => {
 
 }
 
-export default CommentsList;
+export default observer(CommentsList);
 
 
 const styles = StyleSheet.create({

@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import { observer } from "mobx-react";
+import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { responsiveWidth as rw } from "react-native-responsive-dimensions";
 import { CreateIcon } from '../../../assets/icons';
-import ProfileHook from '../../../hooks/ProfileHook';
 import { EmptyState, FabButton, Text } from '../../../shared/components';
 import Loading from '../../../shared/components/LoadingState';
 import { Routes } from '../../../shared/constants/routes';
@@ -16,15 +16,8 @@ const PostsTab = () => {
     const {
         post: { listOfPosts, listOfPostsLoading },
     } = useMobxStore();
-    const { receivePostsList, } = ProfileHook()
     const { navigate } = useNavigation()
 
-    useEffect(() => {
-        receivePostsList()
-    }, [])
-
-    // useEffect(() => {
-    // }, [listOfPostsLoading])
 
     const renderItem = ({ item }: { item: Post }) => (
         <PostItem post={item} />
@@ -69,4 +62,4 @@ const styles = StyleSheet.create({
     btnText: { color: colors.white },
 })
 
-export default PostsTab;
+export default observer(PostsTab);

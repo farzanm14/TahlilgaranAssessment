@@ -1,20 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useRef, useState } from 'react';
-import { FlatList, Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { responsiveWidth as rw, responsiveHeight as rh } from "react-native-responsive-dimensions";
-import { CommentIcon, DeleteIcon, EditIcon, MoreIcon, PostIcon } from '../../../assets/icons';
-import { EmptyState, showFlashMessage, Text } from '../../../shared/components';
-import Loading from '../../../shared/components/LoadingState';
-import { EndPoints } from "../../../shared/constants/endpoints";
-import { Routes } from '../../../shared/constants/routes';
-import HttpHandler from "../../../shared/services/HttpHandler";
-import colors from '../../../shared/theme/colors';
-import { Comment, HttpRequest, Post } from '../../../shared/types';
-import { useMobxStore } from '../../../stores';
-import CommentItem from './CommentItem';
-import CommentsList from '../post/CommentsList';
-import { Host, Portal } from 'react-native-portalize';
+import { observer } from "mobx-react";
+import React, { useRef } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
+import { Portal } from 'react-native-portalize';
+import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions";
+import { DeleteIcon, EditIcon, MoreIcon, PostIcon } from '../../../assets/icons';
+import { showFlashMessage, Text } from '../../../shared/components';
+import { Routes } from '../../../shared/constants/routes';
+import colors from '../../../shared/theme/colors';
+import { Post } from '../../../shared/types';
+import { useMobxStore } from '../../../stores';
+import CommentsList from '../post/CommentsList';
+
 interface PostItemProps {
     post: Post,
     // onPress?: () => void
@@ -96,7 +94,7 @@ const PostItem = ({ post }: PostItemProps) => {
     )
 }
 
-export default PostItem;
+export default observer(PostItem);
 
 const styles = StyleSheet.create({
     container: {

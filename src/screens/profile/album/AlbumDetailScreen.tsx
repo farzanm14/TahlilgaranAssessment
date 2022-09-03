@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useEffect, useState } from 'react'
+import { observer } from "mobx-react"
+import React from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
 import { BackIcon } from '../../../assets/icons'
-import ProfileHook from '../../../hooks/ProfileHook'
 import { Container, EmptyState, Text } from '../../../shared/components'
 import { Routes } from '../../../shared/constants/routes'
 import colors from '../../../shared/theme/colors'
@@ -13,17 +13,13 @@ import PhotoItem from '../components/PhotoItem'
 
 const AlbumDetailScreen = () => {
   const { goBack, navigate } = useNavigation()
-  const { receiveSelectedPhotoComments } = ProfileHook()
   const {
     profile: { selectedAlbum, },
-    album: { selectedAlbumPhotos, setSelectedPhoto, commentsListLoading },
+    album: { selectedAlbumPhotos, setSelectedPhoto, },
   } = useMobxStore();
 
   const moveToSelectedPhoto = async (selectedPhoto: Photo) => {
-    console.log("moveToSelectedPhoto", selectedPhoto);
     setSelectedPhoto(selectedPhoto)
-    // receiveSelectedPhotoComments()
-    // !commentsListLoading && 
     setTimeout(() => {
       navigate(Routes.SINGLEPHOTO)
     }, 500);
@@ -68,7 +64,7 @@ const AlbumDetailScreen = () => {
   )
 }
 
-export default AlbumDetailScreen;
+export default observer(AlbumDetailScreen);
 
 const styles = StyleSheet.create({
   list: {

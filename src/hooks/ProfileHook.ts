@@ -12,12 +12,12 @@ const ProfileHook = () => {
         post: { setListOfPosts, setListOfPostsLoading }
     } = useMobxStore();
 
-    async function receiveAlbumsList(theSelectedUser) {
+    async function receiveAlbumsList(theSelectedUserId: number) {
         setListOfAlbumsLoading(true)
         // https://jsonplaceholder.typicode.com/users/5/albums/
 
         // HttpHandler.Request(HttpRequest.GET, EndPoints.home.users + `/${selectedUser?.id}/` + EndPoints.profile.albums)
-        HttpHandler.Request(HttpRequest.GET, `users/${theSelectedUser?.id}/albums`)
+        HttpHandler.Request(HttpRequest.GET, `users/${theSelectedUserId}/albums`)
             .then(res => {
                 console.log("___ receiveAlbumsList ___ res  :  ", res?.data)
                 setListOfAlbums(res?.data)
@@ -27,10 +27,10 @@ const ProfileHook = () => {
                 setListOfAlbumsLoading(false)
             })
     }
-    async function receivePostsList() {
+    async function receivePostsList(theSelectedUserId: number) {
         setListOfPostsLoading(true)
         // https://jsonplaceholder.typicode.com/users/5/posts/
-        HttpHandler.Request(HttpRequest.GET, `users/${selectedUser?.id}/posts`)
+        HttpHandler.Request(HttpRequest.GET, `users/${theSelectedUserId}/posts`)
             .then(res => {
                 console.log("___ receivePostsList ___ res  :  ", res?.data)
                 setListOfPosts(res?.data)

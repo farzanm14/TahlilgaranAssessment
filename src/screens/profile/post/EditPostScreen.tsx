@@ -9,9 +9,10 @@ import YesNoModal from '../../../shared/components/YesNoModal'
 import colors from '../../../shared/theme/colors'
 import { Post } from '../../../shared/types'
 import { useMobxStore } from '../../../stores'
+import { observer } from "mobx-react";
 
 const EditPostScreen = ({ route }) => {
-    const { goBack, navigate } = useNavigation()
+    const { goBack } = useNavigation()
     const { isEditMode } = route?.params
     const {
         users: { selectedUser },
@@ -156,7 +157,7 @@ const EditPostScreen = ({ route }) => {
     )
 }
 
-export default EditPostScreen;
+export default observer(EditPostScreen);
 
 const styles = StyleSheet.create({
     headerContainer: {

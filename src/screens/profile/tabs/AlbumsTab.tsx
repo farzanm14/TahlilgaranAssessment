@@ -1,37 +1,26 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import { observer } from "mobx-react";
+import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
+import { responsiveWidth as rw } from "react-native-responsive-dimensions";
 import ProfileHook from '../../../hooks/ProfileHook';
 import { EmptyState } from '../../../shared/components';
 import Loading from '../../../shared/components/LoadingState';
 import { Routes } from '../../../shared/constants/routes';
-import colors from '../../../shared/theme/colors';
 import { Album } from '../../../shared/types';
 import { useMobxStore } from '../../../stores';
 import AlbumItem from '../components/AlbumItem';
-import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
 
 const AlbumsTab = () => {
     const {
-        users: { selectedUser },
         profile: { listOfAlbums, listOfAlbumsLoading, setSelectedAlbum },
-        album: { selectedAlbumPhotosLoading }
     } = useMobxStore();
-    const { receiveAlbumsList, receiveSelectedAlbumPhotos, } = ProfileHook()
+    const { receiveSelectedAlbumPhotos, } = ProfileHook()
     const { navigate } = useNavigation()
 
-    // useEffect(() => {
-    //     receiveAlbumsList(selectedUser)
-    // }, [])
-
-    // useEffect(() => {
-    // }, [listOfAlbumsLoading])
-
     const moveToSelectedAlbum = async (selectedAlbum: Album) => {
-        console.log("moveToselectedAlbumProfile", selectedAlbum);
         setSelectedAlbum(selectedAlbum)
         receiveSelectedAlbumPhotos(selectedAlbum)
-        // !selectedAlbumPhotosLoading && 
         navigate(Routes.ALBUMDETAIL)
 
     }
@@ -47,9 +36,6 @@ const AlbumsTab = () => {
             extraData={listOfAlbums}
             renderItem={renderItem}
             style={styles.list}
-            // numColumns={3} 
-            // columnWrapperStyle={{ width: '100%', justifyContent: 'space-around' }}
-
             stickyHeaderHiddenOnScroll={false}
             ListEmptyComponent={listOfAlbumsLoading ?
                 <Loading /> :
@@ -58,7 +44,7 @@ const AlbumsTab = () => {
     )
 }
 
-export default AlbumsTab;
+export default observer(AlbumsTab);
 
 const styles = StyleSheet.create({
     list: { marginHorizontal: rw(3) },
