@@ -1,3 +1,8 @@
+/**
+ * a sub component for profile screen
+ * and just shows user info with a back button in header
+ */
+
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
@@ -8,7 +13,6 @@ import { useMobxStore } from '../../../stores'
 import { observer } from "mobx-react";
 
 const ProfileHeader = () => {
-
     const { goBack } = useNavigation()
     const { users: { selectedUser } } = useMobxStore();
 

@@ -1,3 +1,12 @@
+/**
+ * this screen has 2 inputs for title and body of a post
+ * it's use as create screen and same time edit screen
+ * I've separate each action by a param (isEditMode)
+ * 
+ * if screen is on edit mode, the inputs have initial value (current title and body of selected post)
+ * and if isEditMode==true onsubmit method I'll call edit method instead create method
+ */
+
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, StyleSheet, TextInput, View } from 'react-native'

@@ -1,3 +1,9 @@
+/**
+ * Import screens and keep them in same stack, 
+ * react navigation help to navigate between these screens
+ * also it allows to send params if needed
+ */
+
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack"

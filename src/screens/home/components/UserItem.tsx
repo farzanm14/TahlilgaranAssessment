@@ -1,3 +1,8 @@
+/**
+ * this component shows a row, that each row belongs to a user of usersScreen flatList
+ * it's receive data and action from parent component as props
+ */
+
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions";

@@ -1,3 +1,5 @@
+/** Add vectorIcons in separate components to ease changing them globally if needed*/
+
 import BackIcon from "./BackIcon";
 import CommentIcon from "./CommentIcon";
 import EditIcon from "./EditIcon";

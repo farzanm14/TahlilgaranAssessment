@@ -1,3 +1,9 @@
+/**
+ * each album has number of photos
+ * and this component preview list of posts
+ * as user select a photo, he will gonna navigate to Photos detail screen
+ */
+
 import { useNavigation } from '@react-navigation/native'
 import { observer } from "mobx-react"
 import React from 'react'
@@ -5,6 +11,7 @@ import { FlatList, StyleSheet, View } from 'react-native'
 import { responsiveHeight as rh, responsiveWidth as rw } from "react-native-responsive-dimensions"
 import { BackIcon } from '../../../assets/icons'
 import { Container, EmptyState, Text } from '../../../shared/components'
+import Loading from '../../../shared/components/LoadingState'
 import { Routes } from '../../../shared/constants/routes'
 import colors from '../../../shared/theme/colors'
 import { Photo } from '../../../shared/types'
@@ -15,7 +22,7 @@ const AlbumDetailScreen = () => {
   const { goBack, navigate } = useNavigation()
   const {
     profile: { selectedAlbum, },
-    album: { selectedAlbumPhotos, setSelectedPhoto, },
+    album: { selectedAlbumPhotos, setSelectedPhoto, selectedAlbumPhotosLoading },
   } = useMobxStore();
 
   const moveToSelectedPhoto = async (selectedPhoto: Photo) => {
@@ -52,13 +59,12 @@ const AlbumDetailScreen = () => {
         numColumns={3}
         fadingEdgeLength={rh(10)}
         columnWrapperStyle={styles.columnWrapperStyle}
-
         stickyHeaderHiddenOnScroll={true}
         ListHeaderComponent={<Header />}
         contentContainerStyle={styles.contentContainerStyle}
         ListEmptyComponent={
-          // selectedAlbumPhotosLoading ?<Loading /> :
-          <EmptyState message={"there isn't any photo"} />}
+          selectedAlbumPhotosLoading ? <Loading /> :
+            <EmptyState message={"there isn't any photo"} />}
       />
     </Container>
   )

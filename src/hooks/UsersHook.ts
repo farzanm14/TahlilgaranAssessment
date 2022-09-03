@@ -1,3 +1,10 @@
+/** userList get api call method
+ * this file has access to the state manager
+ * as get request sent, it's save the result in state manager
+ * 
+ * loadings helps user to understand processing
+ * as request finished the loading will turn off and result will preview
+ */
 import { StackActions, useNavigation } from "@react-navigation/native"
 import { EndPoints } from "../shared/constants/endpoints"
 import { Routes } from "../shared/constants/routes"

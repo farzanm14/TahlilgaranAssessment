@@ -1,3 +1,11 @@
+/**
+ * this screen preview list of users
+ * while list isn't loading yet, user see spinner
+ * as data received the state will update and he can see users in a flatList
+ * 
+ * in case list is empty, empty state component preview a empty text
+ */
+
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { observer } from "mobx-react"
 import React from 'react'
@@ -44,7 +52,7 @@ const UsersScreen = () => {
                 keyExtractor={(item, key) => key.toString()}
                 data={listOfUsers}
                 extraData={listOfUsers}
-                renderItem={renderItem}
+                renderItem={renderItem}//move renderItem to separate method in order to enhance performance
                 style={styles.list}
                 stickyHeaderHiddenOnScroll={true}
                 ListHeaderComponent={<Header />}

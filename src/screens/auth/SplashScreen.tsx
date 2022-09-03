@@ -1,3 +1,8 @@
+/**
+ * initial screen that user gonna see
+ * call users list and as response received, user will navigate to see the list
+ */
+
 import React, { useEffect } from 'react'
 import SplashIcon from '../../assets/icons/SplashIcon'
 import UsersHook from '../../hooks/UsersHook'

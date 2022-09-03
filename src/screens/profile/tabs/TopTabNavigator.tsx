@@ -1,5 +1,4 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-
 import * as React from 'react';
 import { StyleSheet } from "react-native";
 import { responsiveWidth as rw } from "react-native-responsive-dimensions";

@@ -1,3 +1,11 @@
+/** profile api call methods
+ * this file has access to the state manager
+ * receive required input from screens and send a http request to backend 
+ * then save the result in state manager
+ * 
+ * loadings helps user to understand processing
+ * as request finished the loading will turn off and result will preview
+ */
 import { EndPoints } from "../shared/constants/endpoints"
 import HttpHandler from "../shared/services/HttpHandler"
 import { Album } from "../shared/types"
@@ -6,7 +14,7 @@ import { useMobxStore } from "../stores"
 
 const ProfileHook = () => {
     const {
-        profile: { setListOfAlbums, setListOfAlbumsLoading, selectedAlbum },
+        profile: { setListOfAlbums, setListOfAlbumsLoading },
         users: { selectedUser },
         album: { setSelectedAlbumPhotos, setSelectedAlbumPhotosLoading, selectedPhoto, setCommentsList, setCommentsListLoading },
         post: { setListOfPosts, setListOfPostsLoading }
@@ -14,9 +22,6 @@ const ProfileHook = () => {
 
     async function receiveAlbumsList(theSelectedUserId: number) {
         setListOfAlbumsLoading(true)
-        // https://jsonplaceholder.typicode.com/users/5/albums/
-
-        // HttpHandler.Request(HttpRequest.GET, EndPoints.home.users + `/${selectedUser?.id}/` + EndPoints.profile.albums)
         HttpHandler.Request(HttpRequest.GET, `users/${theSelectedUserId}/albums`)
             .then(res => {
                 console.log("___ receiveAlbumsList ___ res  :  ", res?.data)
@@ -29,7 +34,6 @@ const ProfileHook = () => {
     }
     async function receivePostsList(theSelectedUserId: number) {
         setListOfPostsLoading(true)
-        // https://jsonplaceholder.typicode.com/users/5/posts/
         HttpHandler.Request(HttpRequest.GET, `users/${theSelectedUserId}/posts`)
             .then(res => {
                 console.log("___ receivePostsList ___ res  :  ", res?.data)
@@ -54,7 +58,6 @@ const ProfileHook = () => {
     }
     async function receiveSelectedPhotoComments() {
         setCommentsListLoading(true)
-        // https://jsonplaceholder.typicode.com/users/5/comments?postId=1
         HttpHandler.Request(HttpRequest.GET, EndPoints.home.users + `/${selectedUser?.id}/comments?postId=${selectedPhoto?.id}`)
             .then(res => {
                 console.log("___ receiveSelectedPhotoComments ___ res  :  ", res?.data)
